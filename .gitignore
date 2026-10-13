@@ -1,0 +1,7 @@
+# models and local installs are fetched by setup, never committed
+*.gguf
+__pycache__/
+*.pyc
+.venv/
+# local run state
+*.log

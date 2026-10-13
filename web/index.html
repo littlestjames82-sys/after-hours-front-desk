@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After-Hours Front Desk — Call Simulator</title>
+<style>
+  :root { --ink:#1c2430; --paper:#f6f3ec; --accent:#6716f3; --soft:#e7e1d4; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: Georgia, 'Times New Roman', serif;
+         background: var(--paper); color: var(--ink); }
+  header { padding: 28px 20px 8px; text-align:center; }
+  h1 { margin:0; font-size: 30px; letter-spacing:.5px; }
+  .sub { color:#5a6472; font-style: italic; margin-top:6px; }
+  .honest { max-width:760px; margin:14px auto 0; background:#fff8e6;
+            border:1px solid #e3cf8a; border-radius:8px; padding:10px 14px;
+            font-size:14px; }
+  main { max-width:760px; margin:18px auto 40px; padding:0 16px; }
+  .scenarios { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  button { font-family: inherit; cursor:pointer; border-radius:8px;
+           border:1px solid var(--ink); background:white; padding:9px 14px;
+           font-size:15px; }
+  button.primary { background: var(--accent); border-color: var(--accent);
+                   color:white; font-weight:bold; }
+  button:disabled { opacity:.45; cursor:default; }
+  #transcript { margin-top:18px; background:white; border:1px solid var(--soft);
+                border-radius:10px; padding:16px; min-height:220px; }
+  .line { margin:0 0 12px; line-height:1.45; }
+  .who { font-variant: small-caps; font-weight:bold; color: var(--accent); }
+  .caller .who { color:#8a5a00; }
+  .row { display:flex; gap:8px; margin-top:14px; }
+  #callerText { flex:1; padding:10px; font-size:16px; border-radius:8px;
+                border:1px solid var(--ink); font-family:inherit; }
+  #status { text-align:center; color:#5a6472; min-height:20px; margin-top:10px;
+            font-style: italic; }
+  #card { display:none; margin-top:18px; background:#101828; color:#f2f4f7;
+          border-radius:10px; padding:18px 20px; }
+  #card h2 { margin:0 0 10px; font-size:20px; }
+  #card table { border-collapse: collapse; }
+  #card td { padding:4px 14px 4px 0; vertical-align: top; }
+  #card td.k { color:#b8c2d4; font-variant: small-caps; }
+  .urgency-emergency { color:#ff7a72; font-weight:bold; }
+  .urgency-urgent { color:#ffc46b; font-weight:bold; }
+  footer { text-align:center; color:#5a6472; font-size:13px; padding:0 16px 28px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>☎️ After-Hours Front Desk</h1>
+  <p class="sub">A voice receptionist that lives on the shop's own computer —
+     no cloud, no per-minute fees, in the shop's own voice profile.</p>
+  <div class="honest"><strong>Simulator demo.</strong> The caller side is typed
+     (a stand-in for the phone line — real phone wiring is the paid next step).
+     The front desk's replies are generated live by a local open-weight model
+     and spoken by the Sopro voice engine, both running on this machine.
+     The shop below is fictional.</div>
+</header>
+<main>
+  <div class="scenarios">
+    <button id="btnCall" class="primary">📞 Call Oakdale Heating &amp; Air</button>
+    <button class="scen" data-text="Hi, our pipe just burst under the kitchen sink and water is going everywhere. We shut the main off but we need someone tonight.">💧 Burst pipe at night</button>
+    <button class="scen" data-text="Hello, our heat quit about an hour ago and it is getting cold fast. We have a four-month-old baby in the house.">🥶 No heat, baby in the house</button>
+    <button class="scen" data-text="Hey, I am looking to get a quote on replacing our old furnace sometime this spring.">🧾 Quote request</button>
+  </div>
+  <div id="transcript"><p class="line"><em>Press Call — the front desk answers
+     out loud. Then type as the caller.</em></p></div>
+  <div class="row">
+    <input id="callerText" placeholder="Type what the caller says…" disabled>
+    <button id="btnSay" disabled>Say it</button>
+    <button id="btnEnd" disabled>End call &amp; get owner summary</button>
+  </div>
+  <p id="status"></p>
+  <div id="card"></div>
+</main>
+<footer>Built by Ghost Developer Studio · Brain: Gemma (open weights) via
+  llama.cpp · Voice: Sopro V2 Turbo (Apache-2.0) · Nothing leaves this machine.</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const status = t => { $("status").textContent = t; };
+let audio = new Audio();
+
+function renderTranscript(lines) {
+  $("transcript").innerHTML = lines.map(l =>
+    `<p class="line ${l.who === "Caller" ? "caller" : ""}">
+       <span class="who">${l.who}:</span> ${l.text}</p>`).join("");
+  $("transcript").scrollTop = $("transcript").scrollHeight;
+}
+
+async function post(path, payload) {
+  const r = await fetch(path, { method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload || {}) });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || r.status);
+  return data;
+}
+
+function play(b64) {
+  audio.src = "data:audio/wav;base64," + b64;
+  audio.play().catch(() => {});
+}
+
+function setBusy(b, msg) {
+  $("btnSay").disabled = b; $("btnEnd").disabled = b;
+  $("callerText").disabled = b; status(msg || "");
+}
+
+$("btnCall").onclick = async () => {
+  setBusy(true, "The front desk is picking up… (local model + voice, give it a few seconds)");
+  try {
+    const d = await post("/api/start");
+    renderTranscript(d.transcript); play(d.audio);
+    $("btnCall").disabled = true;
+    setBusy(false, "You're on the call. Type as the caller.");
+    $("callerText").focus();
+  } catch (e) { setBusy(false, "⚠️ " + e.message); }
+};
+
+document.querySelectorAll(".scen").forEach(b => b.onclick = () => {
+  $("callerText").value = b.dataset.text; $("callerText").focus();
+});
+
+async function say() {
+  const text = $("callerText").value.trim();
+  if (!text) return;
+  $("callerText").value = "";
+  setBusy(true, "Front desk is thinking and speaking…");
+  try {
+    const d = await post("/api/say", { text });
+    renderTranscript(d.transcript); play(d.audio);
+    setBusy(false, "");
+  } catch (e) { setBusy(false, "⚠️ " + e.message); }
+}
+$("btnSay").onclick = say;
+$("callerText").addEventListener("keydown", e => { if (e.key === "Enter") say(); });
+
+// Auto-demo mode (used to capture honest evidence screenshots):
+// ?demo=full plays the whole scripted call; ?demo=mid stops mid-call.
+window.__demoState = "idle";
+if (new URLSearchParams(location.search).get("demo")) {
+  window.__demoState = "running";
+  const mode = new URLSearchParams(location.search).get("demo");
+  const lines = [
+    "Hi, our heat quit about an hour ago and it is getting cold fast. We have a four-month-old baby in the house.",
+    "This is Sarah Daniels, my number is 423-555-0147.",
+    "We are at 418 Pine Street in Oakdale. Please, can someone come tonight, as soon as possible?"
+  ];
+  window.addEventListener("load", async () => {
+    try {
+      $("btnCall").click();
+      await new Promise(r => {
+        const t = setInterval(() => {
+          if (!$("callerText").disabled) { clearInterval(t); r(); }
+        }, 500);
+      });
+      const upto = mode === "mid" ? 2 : lines.length;
+      for (let i = 0; i < upto; i++) {
+        $("callerText").value = lines[i];
+        await say();
+        await new Promise(r => {
+          const t = setInterval(() => {
+            if (!$("callerText").disabled) { clearInterval(t); r(); }
+          }, 500);
+        });
+      }
+      if (mode !== "mid") await $("btnEnd").onclick();
+      window.__demoState = "done";
+    } catch (e) { window.__demoState = "error: " + e.message; }
+  });
+}
+
+$("btnEnd").onclick = async () => {
+  setBusy(true, "Building the owner's summary from the call…");
+  try {
+    const d = await post("/api/end");
+    const c = d.card;
+    const rows = [["Caller", c.caller_name], ["Phone", c.phone],
+      ["Job", c.job], ["Urgency", c.urgency], ["Address", c.address],
+      ["Wants", c.requested_time], ["Summary", c.summary]]
+      .map(([k, v]) => `<tr><td class="k">${k}</td>` +
+        `<td class="${k === "Urgency" ? "urgency-" + v.toLowerCase() : ""}">${v}</td></tr>`).join("");
+    $("card").innerHTML = `<h2>📩 Owner summary — texted to the shop owner</h2><table>${rows}</table>`;
+    $("card").style.display = "block";
+    status("Call ended. This card is what the owner wakes up to.");
+  } catch (e) { setBusy(false, "⚠️ " + e.message); }
+};
+</script>
+</body>
+</html>

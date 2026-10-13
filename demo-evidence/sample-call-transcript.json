@@ -1,0 +1,34 @@
+{
+  "transcript": [
+    {
+      "desk": "Good evening, Oakdale Heating & Air, how can I help you?"
+    },
+    {
+      "caller": "Hi, our heat quit about an hour ago and it is getting cold fast. We have a four-month-old baby in the house."
+    },
+    {
+      "desk": "Okay, I understand. What is your name?"
+    },
+    {
+      "caller": "This is Sarah Daniels, my number is 423-555-0147."
+    },
+    {
+      "desk": "And what is your address?"
+    },
+    {
+      "caller": "We are at 418 Pine Street in Oakdale. Please, can someone come tonight, as soon as possible?"
+    },
+    {
+      "desk": "Okay, thank you. The owner will be alerted right away."
+    }
+  ],
+  "summary_card": {
+    "caller_name": "Sarah Daniels",
+    "phone": "423-555-0147",
+    "job": "Heat quit",
+    "urgency": "emergency",
+    "address": "418 Pine Street in Oakdale",
+    "requested_time": "tonight, as soon as possible",
+    "summary": "Sarah Daniels reported a heat failure at 418 Pine Street in Oakdale due to a four-month-old baby in the house, requiring immediate service."
+  }
+}
