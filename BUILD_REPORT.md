@@ -225,3 +225,74 @@ plainly with a reserved HTML-comment slot): ~2,620 words, about an
 11-12 minute read (was ~1,150 words / ~5-6 minutes). No em dashes
 anywhere in the post body (Ryan's rule). Prize Categories unchanged:
 Best Use of Gemma only; Render still not claimed (not used).
+
+---
+
+## Round 3 (Oct 13, 2026, final polish)
+
+**Summary-card screenshot — captured for real.** After six failed
+attempts in round 2, the first round-3 attempt landed it: one short
+real call driven through the actual v2 simulator page (Oakdale; the
+caller gives everything in one line: heat quit, four-month-old baby,
+Sarah Daniels, 423-555-0147, 418 Pine Street, "please come tonight").
+Extraction completed in the page and the screenshot
+(`demo-evidence/simulator-summary-card.png`) shows the real card —
+Caller Sarah Daniels · Phone 423-555-0147 · Job "Heat quit" ·
+Urgency emergency · Address 418 Pine Street · Wants tonight — with
+the desk's closing readback above it and the same call already filed
+in the morning list below (logged 10/13/2026 3:20:27 PM). It replaces
+the stale v1 shot, and its upload marker is restored in the DEV draft
+(four screenshots now) and its figure restored on the demo page.
+Attempt log: `demo-evidence/screenshot-r3.log`.
+
+**Riverbend video capture — completed.** The one round-3 retry ran
+the full Riverbend burst-pipe call through the page (greeting, both
+replies, end-of-call card) with no restart: manifest merged with the
+round-1 Oakdale segments (10 segments total) and the video rebuilt.
+`demo-evidence/demo-video.mp4` is now **50.3 s**, 1000×1250, H.264 +
+AAC (1,025,460 bytes), captions burned in + sidecar SRT: two complete
+real calls, each ending on its summary card state. It is under the
+60–90 s band discussed in round 1 — the real material (title hold,
+the exact spoken audio, natural pauses, two card holds) totals
+50.3 s, and no hold was stretched and nothing was padded or looped
+to reach a number. An earlier assembly attempt died on a transient
+ffmpeg failure at the last segment; the identical command succeeded
+on re-run and the shipped file was frame-checked (Riverbend greeting
++ captions, closing card caption segment).
+
+**Final smoke test — did NOT pass in round 3; reporting that
+plainly.** Two attempts on the final code:
+- Attempt 1: HTTP 500 from the desk server mid-call after ~16 min.
+- Attempt 2: HTTP 500 on `/api/start` after ~11 min.
+Mechanism, verified: `desk/brain.py` calls llama-server with a 600 s
+timeout; under the sandbox load during these attempts (load average
+5.6–6.7 on 2 cores) a single generation ran past 600 s, the call
+raised, and the server returned its honest 500. No code changed in
+round 3 (docs, draft, demo page, and evidence assets only), and the
+same code completed two full end-to-end calls through the real page
+earlier the same day (the Oakdale card call and the Riverbend video
+call above, both with correct extraction), plus a diagnostic
+`/api/start` at 16:11 UTC that returned the correct greeting with
+real audio after ~7 min. The 8/8 smoke passes on this code stand
+from the v2/v3 runs; round 3 could not reproduce the run inside the
+sandbox's load, and no third attempt was ground out to force a
+green.
+
+**Pre-publish link pass (Oct 13, 2026).** Every URL in the DEV post
+fetched: challenge page 200; repo 200; demo page 200; `eval/RESULTS.md`
+on GitHub 200; and on the Pages host the demo video and all four
+screenshots 200 (the summary-card URL served the stale v1 file until
+this round's push replaced it — same URL, now the real v2 capture;
+the video URL likewise now serves the 50.3 s two-call file — both
+re-verified after the push). The draft header now states plainly
+that DEV does not render GitHub-relative paths, so Ryan must upload
+the video and all four screenshots into DEV's editor directly at the
+HTML-comment markers. Front matter tags confirmed: devchallenge,
+hf26challenge, hacktoberfest, opensource. Prize Categories enters
+Best Use of Gemma only. AI-assistance disclosure present in the post.
+PILOT SLOT still reserved and empty.
+
+**Demo page.** `docs/index.html`: summary-card figure restored,
+video paragraph updated to describe the two calls, and a 390 px
+phone-width render checked — clean, no overflow. The video and all
+images verified serving over HTTPS after the push.

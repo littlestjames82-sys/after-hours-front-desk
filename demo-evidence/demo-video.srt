@@ -21,3 +21,19 @@ Got it. And what time were you hoping someone could come by?
 6
 00:00:21,950 --> 00:00:28,950
 The owner summary card: extracted from the transcript by the same local model.
+
+7
+00:00:28,950 --> 00:00:34,490
+Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?
+
+8
+00:00:34,490 --> 00:00:38,150
+Oh no – I’m sorry to hear that! What’s your name, please?
+
+9
+00:00:38,150 --> 00:00:43,180
+Okay, Chris. And what time were you hoping someone could come out tonight?
+
+10
+00:00:43,180 --> 00:00:50,180
+The owner summary card: extracted from the transcript by the same local model.

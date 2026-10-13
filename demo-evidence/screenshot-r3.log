@@ -1,0 +1,12 @@
+ROUND 3 summary-card retry (Oct 13, 2026, ~15:20 EDT): SUCCESS on the
+first round-3 attempt. One short real call driven through the actual
+v2 simulator page (Oakdale, packed single caller line: heat quit +
+four-month-old baby, Sarah Daniels, 423-555-0147, 418 Pine Street,
+"please come tonight"). Extraction completed in-page; the card reads:
+Caller Sarah Daniels · Phone 423-555-0147 · Job "Heat quit" ·
+Urgency emergency · Address 418 Pine Street · Wants tonight.
+Screenshot: demo-evidence/simulator-summary-card.png (replaces the
+stale v1 shot that rounds 1-2 kept deliberately unlinked). The same
+call also appears in the morning list at the bottom of the frame,
+logged 10/13/2026 3:20:27 PM. Capture script: /tmp/capture_card_r3.py
+(same Marionette route as scripts/screenshot_v2e.py, card step only).

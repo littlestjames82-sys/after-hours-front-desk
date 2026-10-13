@@ -1,0 +1,6 @@
+captured intro: audio=None line='Press Call — the front desk answers\n     out loud. Then type'
+captured plumb-0-greeting: audio=4.94 line='Riverbend Plumbing & Drain: Hello, thank you for calling Riv'
+captured plumb-1-reply: audio=3.06 line='Riverbend Plumbing & Drain: Oh no – I’m sorry to hear that! '
+captured plumb-2-reply: audio=4.43 line='Riverbend Plumbing & Drain: Okay, Chris. And what time were '
+captured plumb-9-card: audio=None line='Riverbend Plumbing & Drain: Okay, Chris. And what time were '
+manifest: 5 segments

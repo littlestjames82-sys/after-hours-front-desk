@@ -1,6 +1,8 @@
 # Compliance audit — DEV Hacktoberfest Week 2 "Side Hustle"
 
-Audited: Oct 13, 2026. Rules read fresh from the official sources:
+Audited: Oct 13, 2026. Final re-check: Oct 13, 2026 (round 3, see the
+date-stamped entry at the bottom). Rules read fresh from the official
+sources:
 
 - Announcement: https://dev.to/devteam/join-the-hacktoberfest-open-source-ai-challenge-side-hustle-2550-in-prizes-across-18-winners-55ba
 - Challenge page (template, FAQ, rules): https://dev.to/challenges/hacktoberfest-week2-2026-10-12
@@ -174,3 +176,34 @@ to the winning shape and the demo gap is closed with real artifacts:
 - Prize Categories still Best Use of Gemma only. GAP-RYAN unchanged:
   Ryan publishes on DEV before Oct 18, 2026, 11:59 PM PDT, finishes
   his DEV profile onboarding, and sets the editor's AI disclosure.
+
+---
+
+**Final re-check Oct 13, 2026 (round 3) — date-stamped.**
+Rules re-read fresh today from the official challenge page
+(https://dev.to/challenges/hacktoberfest-week2-2026-10-12): no rule
+changes. Confirmed again, point by point: brand-new project in the
+Oct 12–18 window; one submission per challenge; required tags
+**devchallenge + hf26challenge** carried in the draft's front matter
+(hacktoberfest + opensource fill the remaining two of DEV's four);
+Best Use of Gemma = "run it locally" qualifies, and the draft's Prize
+Categories section enters that category ONLY (Render still not used,
+still not claimed); post-deadline commits must be noted in the README
+(rule 2b — no such commits yet, watch item stands); AI use expressly
+allowed (disclosure line is in the post and the editor toggle is on
+Ryan's checklist); English; 18+; deadline Oct 18, 2026, 11:59 PM PDT;
+prior/open work credited (Gemma Terms, llama.cpp MIT, Sopro
+Apache-2.0). Verdict: the audit table above stands unchanged.
+Round-3 evidence changes: the summary-card screenshot is now a real
+v2 capture (marker restored in the draft, figure restored on the
+demo page) and the demo video is the 50.3 s two-call cut; the draft
+header now instructs Ryan to upload the video + all four screenshots
+into DEV's editor directly, because DEV does not render
+GitHub-relative paths. Pre-publish link pass: every URL in the post
+fetched 200 on Oct 13, 2026. Final smoke-test note: two round-3
+attempts died on sandbox-load 500s (brain-call 600 s timeout
+exceeded; see BUILD_REPORT round 3) — an environment limit, not a
+compliance item; the same final code completed two full page-driven
+calls the same day. GAP-RYAN is the only remaining item and is
+unchanged: publish on DEV before Oct 18, 2026, 11:59 PM PDT, finish
+profile onboarding, set the AI disclosure toggle.

@@ -8,8 +8,11 @@
 # 2. Tags: devchallenge + hf26challenge are the REQUIRED template tags;
 #    hacktoberfest + opensource fill the other two slots DEV allows.
 # 3. In the Demo section, upload the demo video (repo file
-#    demo-evidence/demo-video.mp4) and the three screenshots where the
-#    HTML comments mark the spots. HTML comments do not render, so a
+#    demo-evidence/demo-video.mp4) and the four screenshots where the
+#    HTML comments mark the spots. DEV does not render GitHub-relative
+#    paths, so every one of these assets must be uploaded into DEV's
+#    editor directly; the repo paths in the comments are just labels
+#    for which file goes where. HTML comments do not render, so a
 #    missed one will not show in the published post.
 # 4. If the editor offers an AI-assistance disclosure toggle, set it.
 #    The challenge FAQ allows AI use; this build was AI-assisted, and
@@ -93,11 +96,13 @@ per-minute meter running to pass along.
 
 <!-- RYAN: upload demo-evidence/demo-video.mp4 here, at the top of this section. -->
 
-The video above is a real call, recorded live in the simulator: a
-no-heat call with a baby in the house, answered by the local model,
-spoken by the local voice, ending on the owner summary card. Nothing
-in it is a mock-up: the frames are the actual page during the call, and
-the audio is the exact speech the desk generated for those replies.
+The video above is two real calls, recorded live in the simulator: a
+no-heat call with a baby in the house at the HVAC shop, and a burst
+pipe at the plumbing shop. Both are answered by the local model and
+spoken by the local voice, and each ends on its owner summary card.
+Nothing in it is a mock-up: the frames are the actual page during the
+calls, and the audio is the exact speech the desk generated for those
+replies.
 
 <!-- RYAN: upload demo-evidence/simulator-mid-call.png here. -->
 
@@ -116,6 +121,14 @@ different trade is editing that file, not retraining anything.
 Owner review, the morning list: every finished call lands here,
 flagged by urgency, before the owner's first coffee. This list is
 the surface the whole product exists to produce.
+
+<!-- RYAN: upload demo-evidence/simulator-summary-card.png here. -->
+
+And the card itself, from a real call driven through this same page:
+name, callback number, job, urgency, address, and what the caller
+asked for, extracted by the same local model at hang-up. The desk's
+closing readback sits above it, and the call is already filed in the
+morning list below it.
 
 Everything in the repo's `demo-evidence/` folder is from real runs:
 the video and its caption file, the screenshots, a full recorded call
