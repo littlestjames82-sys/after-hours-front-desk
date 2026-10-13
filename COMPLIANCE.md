@@ -136,3 +136,41 @@ to the winning shape and the demo gap is closed with real artifacts:
 - Prize Categories still Best Use of Gemma only; Render not claimed.
 - Remaining GAP-RYAN is unchanged: Ryan publishes on DEV before
   Oct 18, 2026, 11:59 PM PDT and sets the editor's AI disclosure.
+
+---
+
+**Update Oct 13, 2026 (round 2, critique pass vs the win research):**
+- **Critique written up** in `ROUND2_CRITIQUE.md` (findings F1-F10).
+  Post fixes: a "My Agent Session" section (honest: AI-assisted
+  build, no hosted session replay linked because sessions here stay
+  local), an architecture diagram in How I Built It, and two new
+  screenshot markers (Riverbend, morning list).
+- **Screenshots re-shot against the v2 UI:** mid-call, Riverbend
+  selected, and the morning list are fresh captures of real runs
+  (the morning list renders a call this session actually logged).
+  The summary-card screenshot could NOT be re-shot despite six
+  attempts (model server deaths, an extraction 500, multi-minute
+  generations, two VM restarts — all logged in `demo-evidence/`).
+  Its upload marker was pulled from the draft and its figure removed
+  from the demo page rather than present a v1 shot as current; the
+  card is quoted verbatim in the post and rendered as data on the
+  demo page.
+- **Video retry:** one more Riverbend capture attempt; the VM
+  restarted mid-call after the greeting and first reply (real frames
+  + audio kept in `demo-evidence/video-capture/`). The shipped video
+  stays the 29 s single complete call. Nothing padded or looped.
+- **Judge-clickable demo page LIVE:** `docs/index.html`, served by
+  GitHub Pages (enabled via the API, repo root as source, build
+  verified): https://littlestjames82-sys.github.io/after-hours-front-desk/docs/
+  It presents the recorded video, screenshots, and eval table, and
+  states plainly that it is recorded evidence, not the live desk.
+  This is GitHub Pages, not Render — the Best Use of Render category
+  remains NOT entered, and no Render claim appears anywhere.
+- **Week 1 (Touch Grass) winners:** re-checked Oct 13, 2026 — still
+  not announced (the newest DEV Team winners post is the Oct 9
+  Weekend Challenge one). No new lessons to fold in.
+- **DEV profile text staged** for Ryan at
+  `~/workspace/your_files/dev-profile-draft.md` (draft only).
+- Prize Categories still Best Use of Gemma only. GAP-RYAN unchanged:
+  Ryan publishes on DEV before Oct 18, 2026, 11:59 PM PDT, finishes
+  his DEV profile onboarding, and sets the editor's AI disclosure.

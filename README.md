@@ -14,6 +14,11 @@ receptionists run ~$30–$100/mo and human answering services $200–$500+/mo).
 Built by [Ghost Developer Studio](https://github.com/littlestjames82-sys)
 for the DEV Hacktoberfest Open-Source AI Challenge, Week 2: "Side Hustle."
 
+**Demo page:** https://littlestjames82-sys.github.io/after-hours-front-desk/docs/
+— the recorded demo video, the simulator screenshots, and the eval
+table on one page. It is recorded evidence, not a live demo: the desk
+itself runs locally (see Run it, below).
+
 ## What this is — honest scope
 
 This is a **working call-simulator demo**, not a shipped phone product:
@@ -127,6 +132,20 @@ A short demo video of a live call (`demo-evidence/demo-video.mp4`,
 `demo-evidence/demo-video.srt`) was captured from the real simulator
 page; its frames are live viewport captures and its audio is the exact
 speech the desk generated for those replies.
+
+The simulator screenshots in `demo-evidence/`
+(`simulator-mid-call.png`, `simulator-riverbend.png`,
+`simulator-morning-list.png`) were re-shot against the current v2
+page on Oct 13, 2026. A round-2 attempt to extend the video with the
+Riverbend call captured that call's greeting and first reply (kept in
+`demo-evidence/video-capture/`) before the sandbox restarted
+mid-call; the shipped video stays the one complete call rather than
+a padded cut. The round-1 summary-card screenshot was not re-shot
+(the extraction step kept stalling under sandbox load; attempts are
+logged in `demo-evidence/screenshot-*.log` and written up in
+`ROUND2_CRITIQUE.md`), so the post no longer presents it as current —
+the card is quoted verbatim in the post and rendered as data on the
+demo page.
 
 ## Why open is the business model
 

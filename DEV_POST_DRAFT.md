@@ -121,11 +121,16 @@ Everything in the repo's `demo-evidence/` folder is from real runs:
 the video and its caption file, the screenshots, a full recorded call
 (`sample-call.wav`) with its transcript, the before and after voice
 clips from the tuning sweep described below, and the eval outputs in
-`eval/`. To run it yourself, follow the README's Run section (a worked
-example, with the exact paths from my machine), start
-`desk/server.py`, and press Call. There is no hosted demo, for the
-same reason the product runs locally: a customer's details should not
-have to leave the building to get a call answered.
+`eval/`.
+
+I also put up a [demo page](https://littlestjames82-sys.github.io/after-hours-front-desk/docs/)
+that gathers the video, the screenshots, and the eval table in one
+place. Be clear about what it is: a page of recorded evidence, not
+the desk running live. The desk itself only runs locally, on purpose:
+a customer's details should not have to leave the building to get a
+call answered. To run the real thing, follow the README's Run section
+(a worked example, with the exact paths from my machine), start
+`desk/server.py`, and press Call.
 
 ## The eval: 20 scripted calls the desk had never seen
 

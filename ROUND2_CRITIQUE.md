@@ -35,8 +35,10 @@ both stale and a missed rung.
 FIX: built `docs/index.html` (demo video, fresh screenshots, eval
 table, plainly labeled as recorded evidence, not a live desk) and
 rewrote the paragraph to link it and say exactly what it is and is
-not. GitHub Pages enablement attempted via the API; see the round 2
-report for the outcome.
+not. OUTCOME: GitHub Pages was enabled via the API with the repo
+root as source (no account action needed from Ryan), the build
+completed, and the page, video, and images were verified serving:
+https://littlestjames82-sys.github.io/after-hours-front-desk/docs/
 
 **F3. The morning list and the second shop were described but never
 shown.** Winners were screenshot-dense; the morning list is this
