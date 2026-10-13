@@ -34,8 +34,43 @@ This is a **working call-simulator demo**, not a shipped phone product:
   voice, cloned from a 5–20 second reference clip recorded **with the
   owner's consent** — that consent-first clone flow is designed (below),
   not faked: no real person's voice is used in this demo.
-- 🏪 **Fictional shop:** "Oakdale Heating & Air" and every caller in the
-  demo are invented. No real business or customer data appears anywhere.
+- 🏪 **Fictional shops:** "Oakdale Heating & Air" and "Riverbend
+  Plumbing & Drain" and every caller in the demo are invented. No real
+  business or customer data appears anywhere.
+
+## v2 — a more human voice, and a second shop
+
+The v1 voice worked but sounded robotic, so v2 worked on both layers
+that make a voice feel human — and measured instead of guessing:
+
+- **Synthesis:** a settings sweep (fixed seed, same lines) picked
+  warmer Sopro sampling — temperature 0.85, top-p 0.95, top-k 40,
+  **steps 8 instead of the speed-first default 2**. Steps turned out
+  to refine the acoustic render of the *same* words at zero behavioral
+  risk. No seed is pinned, so the greeting isn't byte-identical on
+  every call. Sopro has no rate/pitch knobs; everything used is a real
+  control it exposes. Full method + measurements:
+  `demo-evidence/voice-ab/VOICE_NOTES.md`, with before/after WAVs.
+- **The words:** the brain now writes for a mouth, not a screen —
+  contractions, one thought per sentence, short acknowledgements
+  ("Got it.", "Oh no — I'm sorry to hear that."), no lists read aloud.
+  A speech-prep layer (`desk/speech.py`) speaks phone numbers as
+  grouped digits ("four two three, five five five, …") and prices as
+  words — the transcript and the summary card keep the original text.
+  Extraction and emergency triage are unchanged: **smoke test still
+  8/8**.
+- **Second shop:** shop profiles are data (`desk/shops/*.json`), and
+  the simulator now offers two — the HVAC shop and a plumbing company
+  with its own services, prices, emergency rules, and scenarios.
+  Retraining a desk for a new trade is editing one JSON file.
+- **Owner review:** every finished call appends to a local call log
+  (`call-log.jsonl`), and the simulator shows the morning list — time,
+  shop, caller, urgency, summary — the thing an owner actually reads
+  over coffee.
+
+Still honest: the voice is Sopro's bundled **synthetic stand-in**,
+warmer-tuned — it is not a clone of anyone, and the clone flow remains
+a designed, consent-first step, not a faked one.
 
 ## How it works
 

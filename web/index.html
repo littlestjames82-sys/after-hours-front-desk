@@ -16,13 +16,18 @@
             border:1px solid #e3cf8a; border-radius:8px; padding:10px 14px;
             font-size:14px; }
   main { max-width:760px; margin:18px auto 40px; padding:0 16px; }
+  .shoprow { display:flex; gap:8px; justify-content:center; align-items:center;
+             flex-wrap:wrap; margin-bottom:10px; }
+  .shoprow label { font-variant: small-caps; color:#5a6472; }
+  select { font-family: inherit; font-size:15px; padding:8px; border-radius:8px;
+           border:1px solid var(--ink); background:white; }
   .scenarios { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
   button { font-family: inherit; cursor:pointer; border-radius:8px;
            border:1px solid var(--ink); background:white; padding:9px 14px;
            font-size:15px; }
   button.primary { background: var(--accent); border-color: var(--accent);
                    color:white; font-weight:bold; }
-  button:disabled { opacity:.45; cursor:default; }
+  button:disabled, select:disabled { opacity:.45; cursor:default; }
   #transcript { margin-top:18px; background:white; border:1px solid var(--soft);
                 border-radius:10px; padding:16px; min-height:220px; }
   .line { margin:0 0 12px; line-height:1.45; }
@@ -41,6 +46,14 @@
   #card td.k { color:#b8c2d4; font-variant: small-caps; }
   .urgency-emergency { color:#ff7a72; font-weight:bold; }
   .urgency-urgent { color:#ffc46b; font-weight:bold; }
+  #review { margin-top:26px; }
+  #review h2 { font-size:20px; margin:0 0 4px; }
+  #review .hint { color:#5a6472; font-style:italic; margin:0 0 10px;
+                  font-size:14px; }
+  .logentry { background:white; border:1px solid var(--soft); border-radius:10px;
+              padding:12px 16px; margin-bottom:10px; font-size:15px; }
+  .logentry .when { color:#5a6472; font-size:13px; }
+  .logentry .what { font-weight:bold; }
   footer { text-align:center; color:#5a6472; font-size:13px; padding:0 16px 28px; }
 </style>
 </head>
@@ -53,14 +66,16 @@
      (a stand-in for the phone line — real phone wiring is the paid next step).
      The front desk's replies are generated live by a local open-weight model
      and spoken by the Sopro voice engine, both running on this machine.
-     The shop below is fictional.</div>
+     The shops below are fictional.</div>
 </header>
 <main>
+  <div class="shoprow">
+    <label for="shopSel">Shop on the line:</label>
+    <select id="shopSel"></select>
+  </div>
   <div class="scenarios">
-    <button id="btnCall" class="primary">📞 Call Oakdale Heating &amp; Air</button>
-    <button class="scen" data-text="Hi, our pipe just burst under the kitchen sink and water is going everywhere. We shut the main off but we need someone tonight.">💧 Burst pipe at night</button>
-    <button class="scen" data-text="Hello, our heat quit about an hour ago and it is getting cold fast. We have a four-month-old baby in the house.">🥶 No heat, baby in the house</button>
-    <button class="scen" data-text="Hey, I am looking to get a quote on replacing our old furnace sometime this spring.">🧾 Quote request</button>
+    <button id="btnCall" class="primary">📞 Call</button>
+    <span id="scenBtns"></span>
   </div>
   <div id="transcript"><p class="line"><em>Press Call — the front desk answers
      out loud. Then type as the caller.</em></p></div>
@@ -71,6 +86,12 @@
   </div>
   <p id="status"></p>
   <div id="card"></div>
+  <section id="review">
+    <h2>🌅 Owner review — the morning list</h2>
+    <p class="hint">Every finished call lands here (and in a local call log
+       on this machine). This is what the owner reads with coffee.</p>
+    <div id="callLog"><p class="hint">No calls logged yet.</p></div>
+  </section>
 </main>
 <footer>Built by Ghost Developer Studio · Brain: Gemma (open weights) via
   llama.cpp · Voice: Sopro V2 Turbo (Apache-2.0) · Nothing leaves this machine.</footer>
@@ -78,13 +99,15 @@
 <script>
 const $ = id => document.getElementById(id);
 const status = t => { $("status").textContent = t; };
+const esc = s => String(s ?? "").replace(/[&<>"']/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let audio = new Audio();
+let shops = [], currentShop = null;
 
 function renderTranscript(lines) {
   $("transcript").innerHTML = lines.map(l =>
     `<p class="line ${l.who === "Caller" ? "caller" : ""}">
-       <span class="who">${l.who}:</span> ${l.text}</p>`).join("");
-  $("transcript").scrollTop = $("transcript").scrollHeight;
+       <span class="who">${esc(l.who)}:</span> ${esc(l.text)}</p>`).join("");
 }
 
 async function post(path, payload) {
@@ -106,20 +129,65 @@ function setBusy(b, msg) {
   $("callerText").disabled = b; status(msg || "");
 }
 
+function renderScenarios() {
+  const shop = shops.find(s => s.id === currentShop);
+  $("btnCall").textContent = "📞 Call " + (shop ? shop.name : "");
+  $("scenBtns").innerHTML = "";
+  (shop ? shop.scenarios : []).forEach(sc => {
+    const b = document.createElement("button");
+    b.textContent = sc.label;
+    b.onclick = () => { $("callerText").value = sc.text; $("callerText").focus(); };
+    $("scenBtns").appendChild(b);
+  });
+}
+
+async function loadShops() {
+  const r = await fetch("/api/shops");
+  const d = await r.json();
+  shops = d.shops; currentShop = d.default;
+  $("shopSel").innerHTML = shops.map(s =>
+    `<option value="${esc(s.id)}"${s.id === currentShop ? " selected" : ""}>${esc(s.name)} — ${esc(s.trade.split(" (")[0])}</option>`).join("");
+  renderScenarios();
+}
+$("shopSel").onchange = () => { currentShop = $("shopSel").value; renderScenarios(); };
+
+function renderLog(entries) {
+  if (!entries.length) {
+    $("callLog").innerHTML = '<p class="hint">No calls logged yet.</p>';
+    return;
+  }
+  $("callLog").innerHTML = entries.slice().reverse().map(e =>
+    `<div class="logentry">
+       <span class="when">${esc(new Date(e.ended_at).toLocaleString())} · ${esc(e.shop)}</span><br>
+       <span class="what">${esc(e.job)}</span> —
+       <span class="urgency-${esc(e.urgency)}">${esc(e.urgency)}</span><br>
+       ${esc(e.caller_name)} · ${esc(e.phone)} · ${esc(e.address)}<br>
+       ${esc(e.summary)}
+     </div>`).join("");
+}
+
+async function refreshLog() {
+  try {
+    const r = await fetch("/api/call-log");
+    renderLog((await r.json()).entries || []);
+  } catch (e) { /* the list is a convenience view; the log file is the record */ }
+}
+
 $("btnCall").onclick = async () => {
   setBusy(true, "The front desk is picking up… (local model + voice, give it a few seconds)");
+  $("shopSel").disabled = true;
+  $("card").style.display = "none";
   try {
-    const d = await post("/api/start");
+    const d = await post("/api/start", { shop: currentShop });
     renderTranscript(d.transcript); play(d.audio);
     $("btnCall").disabled = true;
     setBusy(false, "You're on the call. Type as the caller.");
     $("callerText").focus();
-  } catch (e) { setBusy(false, "⚠️ " + e.message); }
+  } catch (e) {
+    setBusy(false, "⚠️ " + e.message);
+    $("shopSel").disabled = false;
+  }
 };
-
-document.querySelectorAll(".scen").forEach(b => b.onclick = () => {
-  $("callerText").value = b.dataset.text; $("callerText").focus();
-});
 
 async function say() {
   const text = $("callerText").value.trim();
@@ -135,6 +203,30 @@ async function say() {
 $("btnSay").onclick = say;
 $("callerText").addEventListener("keydown", e => { if (e.key === "Enter") say(); });
 
+$("btnEnd").onclick = async () => {
+  setBusy(true, "Building the owner's summary from the call…");
+  try {
+    const d = await post("/api/end");
+    const c = d.card;
+    const rows = [["Caller", c.caller_name], ["Phone", c.phone],
+      ["Job", c.job], ["Urgency", c.urgency], ["Address", c.address],
+      ["Wants", c.requested_time], ["Summary", c.summary]]
+      .map(([k, v]) => `<tr><td class="k">${k}</td>` +
+        `<td class="${k === "Urgency" ? "urgency-" + esc(v.toLowerCase()) : ""}">${esc(v)}</td></tr>`).join("");
+    $("card").innerHTML = `<h2>📩 Owner summary — texted to the shop owner</h2><table>${rows}</table>`;
+    $("card").style.display = "block";
+    status(d.logged === false
+      ? "Call ended. (The summary card could not be written to the call log.)"
+      : "Call ended. This card is what the owner wakes up to.");
+    // v2 fix: v1 dead-ended here - the Call button stayed disabled
+    // forever. Offer the next call, and refresh the morning list.
+    $("btnCall").textContent = "📞 Call again";
+    $("btnCall").disabled = false;
+    $("shopSel").disabled = false;
+    refreshLog();
+  } catch (e) { setBusy(false, "⚠️ " + e.message); }
+};
+
 // Auto-demo mode (used to capture honest evidence screenshots):
 // ?demo=full plays the whole scripted call; ?demo=mid stops mid-call.
 window.__demoState = "idle";
@@ -148,6 +240,7 @@ if (new URLSearchParams(location.search).get("demo")) {
   ];
   window.addEventListener("load", async () => {
     try {
+      await loadShops();
       $("btnCall").click();
       await new Promise(r => {
         const t = setInterval(() => {
@@ -168,23 +261,10 @@ if (new URLSearchParams(location.search).get("demo")) {
       window.__demoState = "done";
     } catch (e) { window.__demoState = "error: " + e.message; }
   });
+} else {
+  loadShops().catch(() => {});
+  refreshLog();
 }
-
-$("btnEnd").onclick = async () => {
-  setBusy(true, "Building the owner's summary from the call…");
-  try {
-    const d = await post("/api/end");
-    const c = d.card;
-    const rows = [["Caller", c.caller_name], ["Phone", c.phone],
-      ["Job", c.job], ["Urgency", c.urgency], ["Address", c.address],
-      ["Wants", c.requested_time], ["Summary", c.summary]]
-      .map(([k, v]) => `<tr><td class="k">${k}</td>` +
-        `<td class="${k === "Urgency" ? "urgency-" + v.toLowerCase() : ""}">${v}</td></tr>`).join("");
-    $("card").innerHTML = `<h2>📩 Owner summary — texted to the shop owner</h2><table>${rows}</table>`;
-    $("card").style.display = "block";
-    status("Call ended. This card is what the owner wakes up to.");
-  } catch (e) { setBusy(false, "⚠️ " + e.message); }
-};
 </script>
 </body>
 </html>

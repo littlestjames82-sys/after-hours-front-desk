@@ -5,3 +5,6 @@ __pycache__/
 .venv/
 # local run state
 *.log
+
+# owner call log (runtime data from the simulator)
+call-log.jsonl

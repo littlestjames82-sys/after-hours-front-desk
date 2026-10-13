@@ -29,9 +29,10 @@ from the actual call transcript — not a mock-up.)
 **Demo, honestly labeled:** what's built today is a call *simulator* —
 you type the caller's side in a browser page, and the front desk thinks
 and speaks out loud for real. Wiring actual phone lines is the paid next
-step, and I'm not going to pretend otherwise. The shop in the demo is
-fictional, and the voice is a demo profile standing in for the owner's
-own consented voice clone.
+step, and I'm not going to pretend otherwise. The two shops in the
+demo — an HVAC shop and a plumbing company, switchable in the
+simulator — are fictional, and the voice is a demo profile standing in
+for the owner's own consented voice clone.
 
 ## Who pays, and why
 
@@ -65,6 +66,22 @@ slower on my little 2-core build box, correct where it counts. A front
 desk that occasionally invents an address isn't a product; it's a
 liability with a phone number.
 
+**The robot wasn't in the voice.** My first demo sounded like a
+voicemail system from 2009, so I went looking for the "expressiveness"
+knob — and Sopro doesn't have one. No rate, no pitch, no warmth slider;
+just sampling controls and how many refinement steps each sound gets.
+So I measured instead of guessing: a fixed-seed sweep over the
+sampling settings (the write-up and before/after clips are in the repo,
+`demo-evidence/voice-ab/`). More refinement steps made the same words
+sound smoother at zero behavioral risk, and warmer sampling gave the
+callback-number readback room to breathe. But the bigger fix was the
+script: the brain was writing for a screen. Now it writes for a mouth —
+contractions, short sentences, "Got it." and "Oh no — I'm sorry to hear
+that.", and phone numbers spoken as grouped digits ("four two three,
+five five five…") instead of a hyphenated string no human would say.
+Same facts, same triage, same 8/8 test — it just sounds like a person
+who works there.
+
 And because both halves run locally, a customer's name, address, and
 phone number never leave the shop's laptop. For a small business, "your
 customers' details never go to a cloud AI" is not a compliance checkbox —
@@ -78,7 +95,15 @@ counter.
   (services, area, prices, hours, the shop's own definition of
   *emergency*), and the desk is forbidden from speaking beyond it.
 - **Voice:** Sopro V2 Turbo, cloned-voice TTS on CPU, resident as a local
-  service so replies don't pay a model-load each time.
+  service so replies don't pay a model-load each time. Tuned sampling
+  (warmer than the speed-first defaults), and every reply passes a
+  speech-prep pass — numbers and prices become words before they're
+  spoken; the transcript and summary card keep the original text.
+- **Shops are data:** each business is one JSON profile (name, services,
+  prices, emergency definition, demo scenarios). Two fictional shops
+  ship in the demo; onboarding a new trade is editing a file, not
+  retraining anything. Finished calls append to a local call log the
+  owner reviews in the morning.
 - **Summary:** at hang-up, the same local model extracts the owner card
   as structured JSON from the transcript. A headless smoke test plays a
   full scripted call and checks every field against what the caller
