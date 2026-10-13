@@ -1,14 +1,33 @@
 # DRAFT — DO NOT PUBLISH (Ryan approves all posts)
+#
+# Restructured Oct 13, 2026 to the OFFICIAL Week 2 submission template
+# (audit: COMPLIANCE.md in this repo). Posting checklist for Ryan:
+# 1. In DEV's editor, paste everything BELOW the marker line (front
+#    matter included — DEV reads title + tags from it).
+# 2. Tags: devchallenge + hf26challenge are the REQUIRED template tags;
+#    hacktoberfest + opensource fill the other two slots DEV allows.
+# 3. In the Demo section, upload the two screenshots from the repo
+#    (demo-evidence/simulator-mid-call.png and
+#    demo-evidence/simulator-summary-card.png) where marked.
+# 4. If the editor offers an AI-assistance disclosure toggle, set it —
+#    the challenge FAQ allows AI use, and this build was AI-assisted.
+# 5. Publish before Oct 18, 2026, 11:59 PM PDT. One submission only.
+#
+# Categories: Overall (automatic) · Best Use of Gemma (entered in the
+# Prize Categories section at the bottom, as the rules require)
+# Repo: https://github.com/littlestjames82-sys/after-hours-front-desk
 
-**Title:** I built my clients an after-hours front desk that runs on their
-own laptop — in their own voice, with no cloud AI
-
-**Categories:** Overall · Best Use of Gemma
-**Repo:** https://github.com/littlestjames82-sys/after-hours-front-desk
+===== POST — COPY EVERYTHING BELOW THIS LINE =====
 
 ---
+title: I built my clients an after-hours front desk that runs on their own laptop — in their own voice, with no cloud AI
+published: true
+tags: devchallenge, hf26challenge, hacktoberfest, opensource
+---
 
-## What I built
+*This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12)*
+
+## What I Built
 
 **After-Hours Front Desk** — a voice receptionist for small trade shops
 (HVAC, plumbing, excavation, tree work) that runs *entirely on the shop's
@@ -34,17 +53,73 @@ demo — an HVAC shop and a plumbing company, switchable in the
 simulator — are fictional, and the voice is a demo profile standing in
 for the owner's own consented voice clone.
 
-## Who pays, and why
+**Who pays, and why.** Solo and two-truck trade shops lose real money to
+missed evening calls — the job goes to the next name on Google. Cloud AI
+receptionists run ~$30–$100/mo, human answering services $200–$500+/mo.
+I'd sell this at **$49/mo**, and the reason that price works is the whole
+point of this post: there are no per-minute API fees to pass on, because
+nothing is billed per call. A shop that already sells the customer a
+furnace can afford a front desk that costs less than the gas to drive
+out and quote it.
 
-Solo and two-truck trade shops lose real money to missed evening calls —
-the job goes to the next name on Google. Cloud AI receptionists run
-~$30–$100/mo, human answering services $200–$500+/mo. I'd sell this at
-**$49/mo**, and the reason that price works is the whole point of this
-post: there are no per-minute API fees to pass on, because nothing is
-billed per call. A shop that already sells the customer a furnace can
-afford a front desk that costs less than the gas to drive out and quote it.
+## Demo
 
-## Why open isn't a feature here — it's the business model
+The demo is a local call simulator: a browser page where you type the
+caller's side, and the desk answers out loud. Everything in the repo's
+`demo-evidence/` folder is from real runs on my machine:
+
+- `simulator-mid-call.png` — a call in progress: the desk holding the
+  conversation and asking for the details it needs.
+  [UPLOAD THIS SCREENSHOT HERE]
+- `simulator-summary-card.png` — the same call at hang-up: the owner
+  summary card the model extracted from the transcript.
+  [UPLOAD THIS SCREENSHOT HERE]
+- `sample-call.wav` + `sample-call-transcript.json` — a full spoken
+  call and its transcript, and `voice-ab/` — the before/after voice
+  clips from the tuning sweep described below.
+- `smoke_test.py` — the headless proof: it plays a full scripted call
+  (heat quit, baby in the house) and checks every field of the summary
+  card against what the caller said. **8/8 passing.**
+
+To run it yourself: clone the repo, point it at a Gemma GGUF, a
+llama.cpp build, and a Sopro install (the README's Run section is a
+worked example), start `desk/server.py`, and press Call. There is no
+hosted demo — it runs on your machine for the same reason the product
+does: nothing about a call should leave the building.
+
+## Code
+
+**Repo:** https://github.com/littlestjames82-sys/after-hours-front-desk
+(MIT)
+
+The pieces worth reading: `desk/prompts.py` (the system prompt is
+generated from a one-page shop card), `desk/speech.py` (the speech-prep
+pass), `desk/shops/` (each business is one JSON profile), and
+`smoke_test.py` (the 8/8 end-to-end check).
+
+## How I Built It
+
+- **Brain:** Gemma 3 4B-it (Q4_K_M GGUF) served by llama.cpp on
+  localhost. The system prompt is generated from a one-page "shop card"
+  (services, area, prices, hours, the shop's own definition of
+  *emergency*), and the desk is forbidden from speaking beyond it.
+- **Voice:** Sopro V2 Turbo, cloned-voice TTS on CPU, resident as a local
+  service so replies don't pay a model-load each time. Tuned sampling
+  (warmer than the speed-first defaults), and every reply passes a
+  speech-prep pass — numbers and prices become words before they're
+  spoken; the transcript and summary card keep the original text.
+- **Shops are data:** each business is one JSON profile (name, services,
+  prices, emergency definition, demo scenarios). Two fictional shops
+  ship in the demo; onboarding a new trade is editing a file, not
+  retraining anything. Finished calls append to a local call log the
+  owner reviews in the morning.
+- **Summary:** at hang-up, the same local model extracts the owner card
+  as structured JSON from the transcript. A headless smoke test plays a
+  full scripted call and checks every field against what the caller
+  said — 8/8 passing.
+- **Cost of goods:** $0. Open weights, open engines, the shop's hardware.
+
+## Why Does Open Innovation Matter?
 
 Two stories from actually building this:
 
@@ -88,29 +163,7 @@ customers' details never go to a cloud AI" is not a compliance checkbox —
 it's a sentence the owner can say out loud to the person across the
 counter.
 
-## How it's built
-
-- **Brain:** Gemma 3 4B-it (Q4_K_M GGUF) served by llama.cpp on
-  localhost. The system prompt is generated from a one-page "shop card"
-  (services, area, prices, hours, the shop's own definition of
-  *emergency*), and the desk is forbidden from speaking beyond it.
-- **Voice:** Sopro V2 Turbo, cloned-voice TTS on CPU, resident as a local
-  service so replies don't pay a model-load each time. Tuned sampling
-  (warmer than the speed-first defaults), and every reply passes a
-  speech-prep pass — numbers and prices become words before they're
-  spoken; the transcript and summary card keep the original text.
-- **Shops are data:** each business is one JSON profile (name, services,
-  prices, emergency definition, demo scenarios). Two fictional shops
-  ship in the demo; onboarding a new trade is editing a file, not
-  retraining anything. Finished calls append to a local call log the
-  owner reviews in the morning.
-- **Summary:** at hang-up, the same local model extracts the owner card
-  as structured JSON from the transcript. A headless smoke test plays a
-  full scripted call and checks every field against what the caller
-  said — 8/8 passing.
-- **Cost of goods:** $0. Open weights, open engines, the shop's hardware.
-
-## What's next
+## What's Next
 
 1. Consent-first voice setup: the owner records a 20-second script;
    that clip — and only that clip — becomes their front desk's voice.
@@ -123,3 +176,12 @@ The code's MIT and the demo runs on any machine with a few spare cores.
 If you run a small shop: what does a missed 7 PM call cost you?
 
 — Ryan Cotten, Ghost Developer Studio, Oakdale, TN
+
+## Prize Categories
+
+**Best Use of Gemma**: Gemma 3 4B-it runs locally via llama.cpp and is
+the desk's entire brain — it holds the spoken conversation and extracts
+the owner summary card from the transcript. Choosing it was empirical:
+Gemma 3 1B failed the test call on emergency triage and invented an
+address; the 4B passes every field, which is the difference between a
+demo and something a shop could trust at 7 PM.

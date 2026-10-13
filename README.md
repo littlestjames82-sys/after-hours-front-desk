@@ -82,9 +82,9 @@ a designed, consent-first step, not a faked one.
                                                          the summary card
 ```
 
-- `desk/shop.json` — the shop card: services, area, prices, hours, and the
-  shop's own definition of "emergency." The desk may only speak from this
-  card; if it doesn't know, it says the owner will confirm.
+- `desk/shops/*.json` — the shop cards: services, area, prices, hours,
+  and each shop's own definition of "emergency." The desk may only speak
+  from its shop's card; if it doesn't know, it says the owner will confirm.
 - `desk/prompts.py` — builds the system prompt from the card, plus the
   extraction prompt that produces the summary card as JSON.
 - `desk/brain.py` — talks to llama-server (OpenAI-compatible endpoint),
