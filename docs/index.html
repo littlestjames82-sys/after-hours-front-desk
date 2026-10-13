@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After-Hours Front Desk — Demo Evidence</title>
+<style>
+  :root { --ink:#1c2430; --paper:#f6f3ec; --accent:#6716f3; --soft:#e7e1d4; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: Georgia, 'Times New Roman', serif;
+         background: var(--paper); color: var(--ink); }
+  header { padding: 34px 20px 6px; text-align:center; }
+  h1 { margin:0; font-size: 32px; letter-spacing:.5px; }
+  .sub { color:#5a6472; font-style: italic; margin-top:6px; }
+  .honest { max-width:780px; margin:16px auto 0; background:#fff8e6;
+            border:1px solid #e3cf8a; border-radius:8px; padding:12px 16px;
+            font-size:15px; text-align:left; }
+  main { max-width:780px; margin:10px auto 44px; padding:0 16px; }
+  h2 { font-size:23px; margin:34px 0 8px; }
+  p, li { line-height:1.55; }
+  video { width:100%; border-radius:10px; border:1px solid var(--soft);
+          background:#101828; }
+  figure { margin:18px 0; }
+  figure img { width:100%; border:1px solid var(--soft); border-radius:10px; }
+  figcaption { color:#5a6472; font-size:14px; font-style:italic; margin-top:6px; }
+  table { border-collapse: collapse; width:100%; background:white;
+          border:1px solid var(--soft); border-radius:10px; }
+  td, th { padding:8px 12px; border-bottom:1px solid var(--soft);
+           text-align:left; font-size:15px; }
+  tr:last-child td { border-bottom:none; }
+  .card { background:#101828; color:#f2f4f7; border-radius:10px;
+          padding:18px 20px; margin:16px 0; }
+  .card h3 { margin:0 0 10px; font-size:19px; }
+  .card table { background:transparent; border:none; width:auto; }
+  .card td { border:none; padding:4px 14px 4px 0; color:#f2f4f7; }
+  .card td.k { color:#b8c2d4; font-variant: small-caps; }
+  .urgency { color:#ff7a72; font-weight:bold; }
+  a { color: var(--accent); }
+  footer { text-align:center; color:#5a6472; font-size:13px; padding:0 16px 30px; }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size:14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>☎️ After-Hours Front Desk</h1>
+  <p class="sub">A voice receptionist that runs entirely on the shop's own
+     computer — local open-weight model, local voice, no cloud AI.</p>
+  <div class="honest"><strong>What this page is — and is not.</strong>
+     This page gathers the recorded evidence for the project: a real demo
+     video, screenshots from real runs, and the full evaluation table.
+     It is <strong>not</strong> the front desk running live. The desk
+     itself only runs locally, on the shop's own machine, on purpose:
+     a customer's name, address, and phone number should not have to
+     leave the building to get a call answered. To run the real thing,
+     clone the
+     <a href="https://github.com/littlestjames82-sys/after-hours-front-desk">GitHub repo</a>
+     and follow its Run section. In the demo, the caller side is typed
+     (a stand-in for the phone line — wiring real phone lines is the
+     paid next step), the desk's replies are generated live by the local
+     model and spoken by the local voice engine, and both demo shops
+     are fictional.</div>
+</header>
+<main>
+
+  <h2>The demo video</h2>
+  <p>Recorded live in the call simulator: frames are the actual page
+     during the call, and the audio is the exact speech the desk
+     generated for those replies. Nothing is a mock-up.</p>
+  <video controls preload="metadata" src="../demo-evidence/demo-video.mp4">
+    Your browser cannot play this video; it is in the repo at
+    <code>demo-evidence/demo-video.mp4</code>.
+  </video>
+
+  <h2>Screenshots from real runs</h2>
+  <figure>
+    <img src="../demo-evidence/simulator-mid-call.png"
+         alt="Simulator mid-call: the desk holding the conversation with the caller">
+    <figcaption>A call in progress at Oakdale Heating &amp; Air: the desk
+      holding the conversation and asking for the details it needs.</figcaption>
+  </figure>
+  <figure>
+    <img src="../demo-evidence/simulator-riverbend.png"
+         alt="The second demo shop, Riverbend Plumbing and Drain, selected in the simulator">
+    <figcaption>The second demo shop, Riverbend Plumbing &amp; Drain. A shop
+      is one JSON profile: its own services, prices, service area, and
+      definition of emergency.</figcaption>
+  </figure>
+  <figure>
+    <img src="../demo-evidence/simulator-morning-list.png"
+         alt="Owner review: the morning list of finished calls">
+    <figcaption>Owner review — the morning list. Every finished call lands
+      here, flagged by urgency, before the owner's first coffee.</figcaption>
+  </figure>
+
+  <h2>What a finished call produces</h2>
+  <p>Real output from a real demo run (the call in the video):</p>
+  <div class="card">
+    <h3>📩 Owner summary — texted to the shop owner</h3>
+    <table>
+      <tr><td class="k">Caller</td><td>Sarah Daniels</td></tr>
+      <tr><td class="k">Phone</td><td>423-555-0147</td></tr>
+      <tr><td class="k">Job</td><td>Heat quit</td></tr>
+      <tr><td class="k">Urgency</td><td class="urgency">emergency</td></tr>
+      <tr><td class="k">Address</td><td>418 Pine Street in Oakdale</td></tr>
+      <tr><td class="k">Wants</td><td>tonight, as soon as possible</td></tr>
+      <tr><td class="k">Summary</td><td>Sarah Daniels reported a heat failure
+        with a four-month-old baby at 418 Pine Street and requested
+        immediate service.</td></tr>
+    </table>
+  </div>
+
+  <h2>The evaluation: 20 scripted calls the desk had never seen</h2>
+  <p>After the build, the finished desk was run against 20 scripted
+     caller scenarios through its real API — emergencies, urgent jobs,
+     and routine work across both demo shops, each judged by that shop's
+     own written definition of emergency, plus edge cases (a vague
+     caller, a prank call, a caller who refuses details, a caller
+     outside the service area). The desk was not tuned against these
+     scenarios first. Full write-up, per-scenario table, and both
+     failures in detail:
+     <a href="https://github.com/littlestjames82-sys/after-hours-front-desk/blob/main/eval/RESULTS.md">eval/RESULTS.md</a>.</p>
+  <table>
+    <tr><th>Measure</th><th>Result</th></tr>
+    <tr><td>Urgency (triage) correct</td><td><strong>19 / 20 (95%)</strong></td></tr>
+    <tr><td>Emergencies correctly flagged</td><td><strong>8 / 8</strong></td></tr>
+    <tr><td>Urgent correctly judged</td><td>4 / 5 (one over-triage)</td></tr>
+    <tr><td>Routine correctly judged</td><td>7 / 7</td></tr>
+    <tr><td>Extraction fields correct (name, phone, address, job)</td><td><strong>79 / 80</strong></td></tr>
+    <tr><td>Scenarios fully correct</td><td>18 / 20</td></tr>
+    <tr><td>Details invented that the caller never gave</td><td><strong>0</strong></td></tr>
+  </table>
+  <p>The two failures, named on purpose: a contained garage leak was
+     flagged <em>emergency</em> where the shop's own card says
+     <em>urgent</em> (it fails toward sending help faster; the candidate
+     fix is documented but was deliberately not applied after seeing the
+     test, so the 19/20 stays honest), and on the prank call the
+     extractor filed the job as “Refrigerator.”</p>
+  <p>Latency, labeled plainly: on the 2-core sandbox this was built on,
+     a desk turn end to end took a median of about 24 seconds and the
+     summary card about 54 seconds after hang-up. Sandbox numbers, not a
+     production promise.</p>
+
+  <h2>The math</h2>
+  <p>Measured on the build machine: a full call (greeting, three turns,
+     summary extraction) is roughly 4,500 tokens, nearly all of it the
+     shop-card system prompt, which llama.cpp serves from its prefix
+     cache after the first turn. The API bill is $0 — there is no API.
+     The only meter is electricity: about a twentieth of a cent per
+     call. That is what makes a flat <strong>$49/month</strong> honest,
+     against roughly $30–$100/month for cloud AI receptionists and
+     $200–$500+/month for human answering services.</p>
+
+  <h2>Run the full simulator yourself</h2>
+  <p>The complete demo — both shops, live model conversation, spoken
+     replies, summary cards, morning list — runs from the repo:
+     <a href="https://github.com/littlestjames82-sys/after-hours-front-desk">github.com/littlestjames82-sys/after-hours-front-desk</a>
+     (MIT). You will need Python 3.10+, a llama.cpp build, the Gemma 3
+     4B-it GGUF, and a Sopro install; the README's Run section is a
+     worked example.</p>
+
+</main>
+<footer>Built by Ghost Developer Studio for the DEV Hacktoberfest
+  Open-Source AI Challenge, Week 2: “Side Hustle.” · Brain: Gemma
+  (open weights, Gemma Terms) via llama.cpp (MIT) · Voice: Sopro V2
+  Turbo (Apache-2.0) · The demo shops and callers are fictional.</footer>
+</body>
+</html>

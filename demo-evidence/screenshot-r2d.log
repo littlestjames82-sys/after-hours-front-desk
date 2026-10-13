@@ -1,0 +1,6 @@
+stack up
+oakdale-heating-air: card urgency=emergency job='Heat quit' logged=True
+riverbend-plumbing: call failed (TimeoutError: timed out)
+logged calls: oakdale=True riverbend=False
+marionette never came up
+EXIT:0

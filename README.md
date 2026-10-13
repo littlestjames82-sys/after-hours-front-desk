@@ -91,9 +91,11 @@ a designed, consent-first step, not a faked one.
   with a one-shot `llama-cli` fallback.
 - `desk/voice.py` — Sopro via its resident HTTP service, `soprotts` CLI
   fallback.
-- `web/index.html` — the simulator page: Call button, three scripted
-  scenario openers (burst pipe, no heat with a baby in the house, quote
-  request), live transcript, and the owner summary card.
+- `web/index.html` — the simulator page: shop switcher, Call button,
+  three scripted scenario openers per shop card (each shop's own:
+  burst pipe, no heat with a baby in the house, water heater leaking,
+  quote requests), live transcript, the owner summary card, and the
+  owner morning list.
 - `smoke_test.py` — headless end-to-end proof: a full scripted call,
   PASS/FAIL per stage.
 
@@ -153,8 +155,11 @@ Prerequisites: Python 3.10+, a llama.cpp build (`llama-server`), a Gemma
 GGUF, and a Sopro install with its model files.
 
 ```bash
-# 1. get a Gemma open-weight model (GGUF), e.g.:
-#    https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF
+# 1. get the Gemma 3 4B-it open-weight model (GGUF), e.g.:
+#    https://huggingface.co/ggml-org/gemma-3-4b-it-GGUF
+#    (the 4B is deliberate: the 1B was tested first and rejected -
+#    it mis-triaged the emergency test call and invented an address
+#    the caller never gave)
 # 2. point the environment at your installs (see scripts/run-demo.sh
 #    for a complete worked example) and start:
 AHFD_MODEL=/path/to/gemma.gguf \

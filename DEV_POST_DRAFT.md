@@ -8,7 +8,7 @@
 # 2. Tags: devchallenge + hf26challenge are the REQUIRED template tags;
 #    hacktoberfest + opensource fill the other two slots DEV allows.
 # 3. In the Demo section, upload the demo video (repo file
-#    demo-evidence/demo-video.mp4) and the two screenshots where the
+#    demo-evidence/demo-video.mp4) and the three screenshots where the
 #    HTML comments mark the spots. HTML comments do not render, so a
 #    missed one will not show in the published post.
 # 4. If the editor offers an AI-assistance disclosure toggle, set it.
@@ -104,10 +104,18 @@ the audio is the exact speech the desk generated for those replies.
 A call in progress: the desk holding the conversation and asking for
 the details it needs.
 
-<!-- RYAN: upload demo-evidence/simulator-summary-card.png here. -->
+<!-- RYAN: upload demo-evidence/simulator-riverbend.png here. -->
 
-The same kind of call at hang-up: the owner summary card the model
-extracted from the transcript.
+The second demo shop, Riverbend Plumbing & Drain, in the same
+simulator. A shop is one JSON profile: its own services, prices,
+service area, and definition of emergency. Retooling the desk for a
+different trade is editing that file, not retraining anything.
+
+<!-- RYAN: upload demo-evidence/simulator-morning-list.png here. -->
+
+Owner review, the morning list: every finished call lands here,
+flagged by urgency, before the owner's first coffee. This list is
+the surface the whole product exists to produce.
 
 Everything in the repo's `demo-evidence/` folder is from real runs:
 the video and its caption file, the screenshots, a full recorded call
@@ -218,6 +226,18 @@ card; 8 of 8 on the final code).
 
 ## How I Built It
 
+The whole call path, on one machine:
+
+```
+caller (typed, simulator) --> desk/server.py --> llama.cpp + Gemma 3 4B
+                                    |              conversation, triage,
+                                    |              safety rules
+                                    +----------> Sopro V2 Turbo
+                                    |              spoken replies
+                                    '--> at hang-up: Gemma extracts
+                                         the owner summary card
+```
+
 **Brain:** Gemma 3 4B-it (Q4_K_M GGUF) served by llama.cpp on
 localhost. The desk may only speak from the shop card: services, area,
 prices, hours, and the emergency definition. If a caller asks for
@@ -311,6 +331,19 @@ Ryan Cotten, Ghost Developer Studio, Oakdale, TN
 assistant, which the challenge FAQ expressly allows. Every result
 quoted above is from runs on my machine, and the failures are reported
 the same way as the passes.*
+
+## My Agent Session
+
+This project was designed, built, and tested with an AI coding
+assistant working in my studio environment. The shop-card prompt
+system, the speech-prep pass, the measured voice tuning sweep, the
+20-scenario eval harness, and this post all came out of that
+workflow, and the two eval failures above were caught and written
+down inside it. I am not linking a hosted session replay: the
+environment I build in keeps its sessions local, and I would rather
+say that plainly than dress up a transcript export as one. The repo
+is the record instead: the eval harness and its raw results, the
+voice A/B notes, and the build reports are all in it, in the open.
 
 ## Prize Categories
 
