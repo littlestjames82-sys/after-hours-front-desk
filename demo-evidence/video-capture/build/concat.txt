@@ -1,0 +1,6 @@
+file '/home/hatch/workspace/after-hours-front-desk/demo-evidence/video-capture/build/part00.mp4'
+file '/home/hatch/workspace/after-hours-front-desk/demo-evidence/video-capture/build/part01.mp4'
+file '/home/hatch/workspace/after-hours-front-desk/demo-evidence/video-capture/build/part02.mp4'
+file '/home/hatch/workspace/after-hours-front-desk/demo-evidence/video-capture/build/part03.mp4'
+file '/home/hatch/workspace/after-hours-front-desk/demo-evidence/video-capture/build/part04.mp4'
+file '/home/hatch/workspace/after-hours-front-desk/demo-evidence/video-capture/build/part05.mp4'

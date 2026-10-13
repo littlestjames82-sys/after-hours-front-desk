@@ -1,0 +1,230 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T09:34:17+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "hvac-rou-quote",
+      "shop": "oakdale-heating-air",
+      "class": "routine",
+      "note": "Furnace replacement quote for the spring.",
+      "expected": {
+        "address": "elm",
+        "job": [
+          "quote",
+          "furnace",
+          "replace"
+        ],
+        "name": "pruitt",
+        "phone": "4235550108",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Hey, I'm looking to get a quote on replacing our old furnace sometime this spring.",
+        "George Pruitt, my number is 423-555-0108.",
+        "640 Elm Street in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Okay, let me get that for you. The owner will confirm the quote for you during business hours.",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, 640 Elm Street. When would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        62.58,
+        26.31,
+        19.19,
+        26.84
+      ],
+      "audio_seconds": [
+        3.9,
+        4.48,
+        3.15,
+        4.94
+      ],
+      "extraction_seconds": 52.42,
+      "card": {
+        "caller_name": "George Pruitt",
+        "phone": "423-555-0108",
+        "job": "Replacing old furnace",
+        "urgency": "routine",
+        "address": "640 Elm Street in Oakdale",
+        "requested_time": "sometime this spring",
+        "summary": "George Pruitt requested a quote on replacing his old furnace at 640 Elm Street in Oakdale, with a desired timeframe of sometime this spring."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "George Pruitt"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0108"
+        },
+        "address": {
+          "ok": true,
+          "got": "640 Elm Street in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Replacing old furnace"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-rou-tuneup",
+      "shop": "oakdale-heating-air",
+      "class": "routine",
+      "note": "Seasonal tune-up scheduling.",
+      "expected": {
+        "address": "poplar",
+        "job": [
+          "tune"
+        ],
+        "name": "tran",
+        "phone": "4235550143",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "I'd like to schedule a tune-up for our system before winter.",
+        "Lisa Tran, 423-555-0143.",
+        "25 Poplar Avenue, Harriman. Any weekday morning works."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Okay. Our tune-ups are $79. Can I get your name and a phone number to reach you?",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, 25 Poplar Avenue in Harriman. When would you like someone to come \u2013 weekday morning?"
+      ],
+      "turn_seconds": [
+        18.22,
+        24.14,
+        20.94,
+        37.72
+      ],
+      "audio_seconds": [
+        3.99,
+        4.6,
+        3.53,
+        5.5
+      ],
+      "extraction_seconds": 54.43,
+      "card": {
+        "caller_name": "Lisa Tran",
+        "phone": "423-555-0143",
+        "job": "Tune-up for system",
+        "urgency": "routine",
+        "address": "25 Poplar Avenue, Harriman",
+        "requested_time": "Weekday morning",
+        "summary": "Lisa Tran requested a $79 tune-up for her system at 25 Poplar Avenue, Harriman, for a weekday morning appointment."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Lisa Tran"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0143"
+        },
+        "address": {
+          "ok": true,
+          "got": "25 Poplar Avenue, Harriman"
+        },
+        "job": {
+          "ok": true,
+          "got": "Tune-up for system"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-emg-burst",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "Burst pipe flooding the laundry room (the shop's own scenario).",
+      "expected": {
+        "address": "willow",
+        "job": [
+          "pipe",
+          "burst",
+          "water",
+          "leak"
+        ],
+        "name": "novak",
+        "phone": "4235550190",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "A pipe just burst in our laundry room and water is pouring across the floor. I got the main shut off but we need a plumber tonight.",
+        "Chris Novak, 423-555-0190.",
+        "412 Willow Bend in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that! What\u2019s your name, please?"
+      ],
+      "turn_seconds": [
+        60.35,
+        312.33
+      ],
+      "audio_seconds": [
+        4.16,
+        3.48
+      ],
+      "call_errors": [
+        "/api/say: TimeoutError: timed out",
+        "/api/say: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"HTTPError: HTTP Error 400: Bad Request\"}",
+        "/api/say: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"HTTPError: HTTP Error 400: Bad Request\"}"
+      ],
+      "retries": 2,
+      "error": "HTTPError: HTTP Error 500: Internal Server Error"
+    }
+  ],
+  "summary": {
+    "scenarios": 2,
+    "urgency_correct": 2,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 2,
+      "phone": 2,
+      "address": 2,
+      "job": 2
+    },
+    "fields_total": {
+      "name": 2,
+      "phone": 2,
+      "address": 2,
+      "job": 2
+    },
+    "field_checks_correct": 8,
+    "field_checks_total": 8,
+    "fully_correct_scenarios": 2,
+    "turn_seconds": {
+      "count": 8,
+      "mean": 29.49,
+      "median": 25.23,
+      "min": 18.22,
+      "max": 62.58
+    },
+    "extraction_seconds": {
+      "mean": 53.42,
+      "median": 53.42
+    }
+  }
+}

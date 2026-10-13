@@ -1,0 +1,17 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1000
+PlayResY: 1250
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,30,&H00FFFFFF,&H000000FF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,3,1,0,2,40,40,44,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,A real call, recorded live in the simulator.\NThe desk is a local model; the caller side is\Ntyped.
+Dialogue: 0,0:00:05.00,0:00:10.54,Default,,0,0,0,,Hello, thank you for calling Oakdale Heating &\NAir, how can I help you tonight?
+Dialogue: 0,0:00:10.54,0:00:15.18,Default,,0,0,0,,Oh no - I’m sorry to hear that. What’s your\Nname, please?
+Dialogue: 0,0:00:15.18,0:00:18.16,Default,,0,0,0,,Okay, and what’s your address?
+Dialogue: 0,0:00:18.16,0:00:21.95,Default,,0,0,0,,Got it. And what time were you hoping someone\Ncould come by?
+Dialogue: 0,0:00:21.95,0:00:28.95,Default,,0,0,0,,The owner summary card: extracted from the\Ntranscript by the same local model.

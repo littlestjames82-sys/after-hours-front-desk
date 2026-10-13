@@ -1,0 +1,1524 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval (merged final)",
+  "merged_at": "2026-10-13T11:24:48+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "note": "Merged from the batch runs (results.json, results-rest2.json) and the per-scenario fresh-stack runs (results-one-*.json) in eval/. Earlier partial files also in eval/. Turn seconds are end-to-end wall time per desk reply (brain + Sopro voice synthesis) on the 2-core sandbox build box.",
+  "summary": {
+    "scenarios": 20,
+    "urgency_correct": 19,
+    "urgency_accuracy": 0.95,
+    "fields_correct": {
+      "name": 20,
+      "phone": 20,
+      "address": 20,
+      "job": 19
+    },
+    "fields_total": {
+      "name": 20,
+      "phone": 20,
+      "address": 20,
+      "job": 20
+    },
+    "field_checks_correct": 79,
+    "field_checks_total": 80,
+    "fully_correct_scenarios": 18,
+    "turn_seconds": {
+      "count": 77,
+      "mean": 30.82,
+      "median": 23.85,
+      "min": 13.71,
+      "max": 99.68
+    },
+    "turn_seconds_after_greeting": {
+      "count": 57,
+      "median": 23.51,
+      "mean": 26.39
+    },
+    "extraction_seconds": {
+      "mean": 56.82,
+      "median": 54.12,
+      "min": 38.19,
+      "max": 86.78
+    },
+    "audio_seconds_total": 329.4
+  },
+  "results": [
+    {
+      "id": "hvac-emg-baby",
+      "shop": "oakdale-heating-air",
+      "class": "emergency",
+      "note": "No heat with a four-month-old baby in the house (the smoke-test call).",
+      "expected": {
+        "address": "pine",
+        "job": [
+          "heat",
+          "furnace",
+          "heating"
+        ],
+        "name": "daniels",
+        "phone": "4235550147",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "Hi, our heat quit about an hour ago and it is getting cold fast. We have a four-month-old baby in the house.",
+        "This is Sarah Daniels, my number is 423-555-0147.",
+        "We are at 418 Pine Street in Oakdale. Please, can someone come tonight, as soon as possible?"
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, and what\u2019s your address?",
+        "Got it. And what time were you hoping someone could come?"
+      ],
+      "turn_seconds": [
+        89.8,
+        24.26,
+        17.99,
+        20.92
+      ],
+      "audio_seconds": [
+        3.74,
+        3.49,
+        2.31,
+        3.45
+      ],
+      "extraction_seconds": 53.44,
+      "card": {
+        "caller_name": "Sarah Daniels",
+        "phone": "423-555-0147",
+        "job": "Heat quit",
+        "urgency": "emergency",
+        "address": "418 Pine Street in Oakdale",
+        "requested_time": "tonight, as soon as possible",
+        "summary": "Sarah Daniels reported a heat failure with a four-month-old baby at 418 Pine Street and requested immediate service."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Sarah Daniels"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0147"
+        },
+        "address": {
+          "ok": true,
+          "got": "418 Pine Street in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Heat quit"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-emg-elderly",
+      "shop": "oakdale-heating-air",
+      "class": "emergency",
+      "note": "No heat, 84-year-old mother on oxygen in the house.",
+      "expected": {
+        "address": "cedar",
+        "job": [
+          "heat",
+          "furnace"
+        ],
+        "name": "sims",
+        "phone": "4235550119",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "Our furnace stopped working and the house is getting cold. My mother lives with us, she's 84 and on oxygen.",
+        "This is Walter Sims, my number is 423-555-0119.",
+        "We're at 77 Cedar Lane in Oakdale. Please hurry if you can."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, Mr. Sims. And what\u2019s your address?",
+        "Got it. And when would you like someone to come out?"
+      ],
+      "turn_seconds": [
+        21.75,
+        19.54,
+        17.03,
+        21.15
+      ],
+      "audio_seconds": [
+        5.37,
+        3.53,
+        2.59,
+        3.01
+      ],
+      "extraction_seconds": 62.76,
+      "card": {
+        "caller_name": "Walter Sims",
+        "phone": "423-555-0119",
+        "job": "Furnace stopped working",
+        "urgency": "emergency",
+        "address": "77 Cedar Lane in Oakdale",
+        "requested_time": "not given",
+        "summary": "Walter Sims reported a non-functioning furnace at 77 Cedar Lane, Oakdale, due to his 84-year-old mother requiring oxygen. This is an emergency situation."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Walter Sims"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0119"
+        },
+        "address": {
+          "ok": true,
+          "got": "77 Cedar Lane in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Furnace stopped working"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-emg-freezing",
+      "shop": "oakdale-heating-air",
+      "class": "emergency",
+      "note": "No heat on a night forecast to drop to 12 degrees (shop card: no heat below freezing).",
+      "expected": {
+        "address": "walnut",
+        "job": [
+          "heat"
+        ],
+        "name": "webb",
+        "phone": "4235550173",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "Hi, our heat went out tonight and it's supposed to drop to twelve degrees. The pipes are going to freeze.",
+        "Marcus Webb, 423-555-0173.",
+        "209 Walnut Avenue in Harriman. Can someone come tonight?"
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, and what\u2019s your address?",
+        "Got it. Twelve degrees \u2013 that\u2019s an emergency. I\u2019m alerting the owner right away."
+      ],
+      "turn_seconds": [
+        24.48,
+        25.22,
+        23.51,
+        27.45
+      ],
+      "audio_seconds": [
+        4.0,
+        3.7,
+        1.82,
+        4.64
+      ],
+      "extraction_seconds": 53.82,
+      "card": {
+        "caller_name": "Marcus Webb",
+        "phone": "423-555-0173",
+        "job": "Heat went out, pipes going to freeze",
+        "urgency": "emergency",
+        "address": "209 Walnut Avenue in Harriman",
+        "requested_time": "tonight",
+        "summary": "Marcus Webb reported a heat failure and freezing pipes at 209 Walnut Avenue in Harriman, requiring immediate emergency service."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Marcus Webb"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0173"
+        },
+        "address": {
+          "ok": true,
+          "got": "209 Walnut Avenue in Harriman"
+        },
+        "job": {
+          "ok": true,
+          "got": "Heat went out, pipes going to freeze"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-emg-burst-pipe",
+      "shop": "oakdale-heating-air",
+      "class": "emergency",
+      "note": "Burst pipe under the kitchen sink (shop card lists burst or leaking pipes as emergency).",
+      "expected": {
+        "address": "dogwood",
+        "job": [
+          "pipe",
+          "water",
+          "burst",
+          "leak"
+        ],
+        "name": "carter",
+        "phone": "4235550126",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "A pipe just burst under our kitchen sink and water is going everywhere, we shut the main off.",
+        "Denise Carter, my number is 423-555-0126.",
+        "54 Dogwood Drive, Oakdale. We need someone tonight please."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that! Let me get a message for the owner. What\u2019s your name?",
+        "Okay, Denise. And what\u2019s your address?",
+        "Got it. You\u2019d like someone to come out tonight. 423-555-0126, 54 Dogwood Drive. I\u2019m alerting the owner now."
+      ],
+      "turn_seconds": [
+        22.77,
+        28.68,
+        21.93,
+        54.05
+      ],
+      "audio_seconds": [
+        4.98,
+        5.62,
+        2.89,
+        10.57
+      ],
+      "extraction_seconds": 53.4,
+      "card": {
+        "caller_name": "Denise Carter",
+        "phone": "423-555-0126",
+        "job": "Burst pipe under sink",
+        "urgency": "emergency",
+        "address": "54 Dogwood Drive, Oakdale",
+        "requested_time": "tonight",
+        "summary": "Denise Carter reported a burst pipe under her kitchen sink at 54 Dogwood Drive and requested immediate assistance tonight."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Denise Carter"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0126"
+        },
+        "address": {
+          "ok": true,
+          "got": "54 Dogwood Drive, Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Burst pipe under sink"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-emg-gas",
+      "shop": "oakdale-heating-air",
+      "class": "emergency",
+      "note": "Smell of gas. Also checks the desk gives the leave-the-house / call 911 instruction.",
+      "expected": {
+        "address": "river",
+        "job": [
+          "gas"
+        ],
+        "name": "okafor",
+        "phone": "4235550188",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "I smell gas in my kitchen, it's pretty strong near the stove.",
+        "This is James Okafor, 423-555-0188.",
+        "My address is 1210 River Road in Rockwood."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. Please leave the house immediately and call 911.",
+        "Okay, James. And what\u2019s your address?",
+        "Thank you, James. When would you like someone to come out?"
+      ],
+      "turn_seconds": [
+        19.01,
+        22.63,
+        18.5,
+        18.13
+      ],
+      "audio_seconds": [
+        4.26,
+        4.88,
+        3.7,
+        2.76
+      ],
+      "extraction_seconds": 55.83,
+      "card": {
+        "caller_name": "James Okafor",
+        "phone": "423-555-0188",
+        "job": "Smell of gas",
+        "urgency": "emergency",
+        "address": "1210 River Road in Rockwood",
+        "requested_time": "not given",
+        "summary": "James Okafor reported a strong gas smell in his kitchen and was advised to leave the house and call 911."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "James Okafor"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0188"
+        },
+        "address": {
+          "ok": true,
+          "got": "1210 River Road in Rockwood"
+        },
+        "job": {
+          "ok": true,
+          "got": "Smell of gas"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-urg-noheat",
+      "shop": "oakdale-heating-air",
+      "class": "urgent",
+      "note": "No heat, mild night, healthy adults only: urgent, not emergency.",
+      "expected": {
+        "address": "birch",
+        "job": [
+          "heat"
+        ],
+        "name": "doyle",
+        "phone": "4235550131",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "Our heat quit this evening. It's mild out, around fifty, and it's just me and my husband, we're fine, but we'd like it fixed soon.",
+        "Karen Doyle, 423-555-0131.",
+        "88 Birch Street in Oakdale. Tomorrow would be fine."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Okay, I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "423 555 0131. And what\u2019s your address?",
+        "Got it. Tomorrow works. Let me alert the owner, thank you Karen. 423 555 0131. Goodbye."
+      ],
+      "turn_seconds": [
+        25.7,
+        25.57,
+        33.94,
+        43.51
+      ],
+      "audio_seconds": [
+        5.32,
+        4.13,
+        4.36,
+        8.91
+      ],
+      "extraction_seconds": 83.22,
+      "card": {
+        "caller_name": "Karen Doyle",
+        "phone": "423-555-0131",
+        "job": "Heat quit",
+        "urgency": "urgent",
+        "address": "88 Birch Street in Oakdale",
+        "requested_time": "Tomorrow",
+        "summary": "Karen Doyle reported that her heat quit at 88 Birch Street in Oakdale and requested service for tomorrow."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "urgent",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Karen Doyle"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0131"
+        },
+        "address": {
+          "ok": true,
+          "got": "88 Birch Street in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Heat quit"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-urg-ac",
+      "shop": "oakdale-heating-air",
+      "class": "urgent",
+      "note": "AC out on a 95-degree day, nobody vulnerable in the house.",
+      "expected": {
+        "address": "chestnut",
+        "job": [
+          "ac",
+          "cool",
+          "air"
+        ],
+        "name": "holt",
+        "phone": "4235550155",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "Our AC stopped working and it's 95 degrees today. No kids or anything, we're just roasting.",
+        "Brian Holt, 423-555-0155.",
+        "300 Chestnut Court, Kingston. Can someone come tomorrow?"
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, Brian. And what\u2019s your address?",
+        "Got it. Tomorrow works. The owner will be alerted right away."
+      ],
+      "turn_seconds": [
+        23.14,
+        28.12,
+        21.49,
+        28.81
+      ],
+      "audio_seconds": [
+        3.96,
+        3.74,
+        3.45,
+        4.55
+      ],
+      "extraction_seconds": 55.77,
+      "card": {
+        "caller_name": "Brian Holt",
+        "phone": "423-555-0155",
+        "job": "AC stopped working",
+        "urgency": "urgent",
+        "address": "300 Chestnut Court, Kingston",
+        "requested_time": "Tomorrow",
+        "summary": "Brian Holt reported a non-functional AC unit at 300 Chestnut Court, Kingston, and requested a service call for tomorrow."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "urgent",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Brian Holt"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0155"
+        },
+        "address": {
+          "ok": true,
+          "got": "300 Chestnut Court, Kingston"
+        },
+        "job": {
+          "ok": true,
+          "got": "AC stopped working"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-urg-banging",
+      "shop": "oakdale-heating-air",
+      "class": "urgent",
+      "note": "Furnace banging and cutting in and out: a real problem, no danger stated.",
+      "expected": {
+        "address": "magnolia",
+        "job": [
+          "furnace",
+          "heat",
+          "banging",
+          "noise"
+        ],
+        "name": "ruiz",
+        "phone": "4235550162",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "Our furnace is making a loud banging noise and the heat keeps cutting in and out.",
+        "Angela Ruiz, 423-555-0162.",
+        "17 Magnolia Way in Oakdale. Sometime tomorrow if possible."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Okay, I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Got it. And what\u2019s your address?",
+        "Okay, 17 Magnolia Way. Let me get this number down \u2013 423 555 0162. The owner will be alerted right away."
+      ],
+      "turn_seconds": [
+        22.71,
+        24.37,
+        23.98,
+        47.37
+      ],
+      "audio_seconds": [
+        4.81,
+        3.7,
+        2.32,
+        8.86
+      ],
+      "extraction_seconds": 72.57,
+      "card": {
+        "caller_name": "Angela Ruiz",
+        "phone": "423-555-0162",
+        "job": "Furnace making a loud banging noise and heat cutting in and out",
+        "urgency": "urgent",
+        "address": "17 Magnolia Way in Oakdale",
+        "requested_time": "Sometime tomorrow",
+        "summary": "Angela Ruiz reported a noisy furnace with fluctuating heat at 17 Magnolia Way and requested a callback for tomorrow."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "urgent",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Angela Ruiz"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0162"
+        },
+        "address": {
+          "ok": true,
+          "got": "17 Magnolia Way in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Furnace making a loud banging noise and heat cutting in and out"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-rou-quote",
+      "shop": "oakdale-heating-air",
+      "class": "routine",
+      "note": "Furnace replacement quote for the spring.",
+      "expected": {
+        "address": "elm",
+        "job": [
+          "quote",
+          "furnace",
+          "replace"
+        ],
+        "name": "pruitt",
+        "phone": "4235550108",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Hey, I'm looking to get a quote on replacing our old furnace sometime this spring.",
+        "George Pruitt, my number is 423-555-0108.",
+        "640 Elm Street in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Okay, let me get that for you. The owner will confirm the quote for you during business hours.",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, 640 Elm Street. When would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        62.58,
+        26.31,
+        19.19,
+        26.84
+      ],
+      "audio_seconds": [
+        3.9,
+        4.48,
+        3.15,
+        4.94
+      ],
+      "extraction_seconds": 52.42,
+      "card": {
+        "caller_name": "George Pruitt",
+        "phone": "423-555-0108",
+        "job": "Replacing old furnace",
+        "urgency": "routine",
+        "address": "640 Elm Street in Oakdale",
+        "requested_time": "sometime this spring",
+        "summary": "George Pruitt requested a quote on replacing his old furnace at 640 Elm Street in Oakdale, with a desired timeframe of sometime this spring."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "George Pruitt"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0108"
+        },
+        "address": {
+          "ok": true,
+          "got": "640 Elm Street in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Replacing old furnace"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "hvac-rou-tuneup",
+      "shop": "oakdale-heating-air",
+      "class": "routine",
+      "note": "Seasonal tune-up scheduling.",
+      "expected": {
+        "address": "poplar",
+        "job": [
+          "tune"
+        ],
+        "name": "tran",
+        "phone": "4235550143",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "I'd like to schedule a tune-up for our system before winter.",
+        "Lisa Tran, 423-555-0143.",
+        "25 Poplar Avenue, Harriman. Any weekday morning works."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Okay. Our tune-ups are $79. Can I get your name and a phone number to reach you?",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, 25 Poplar Avenue in Harriman. When would you like someone to come \u2013 weekday morning?"
+      ],
+      "turn_seconds": [
+        18.22,
+        24.14,
+        20.94,
+        37.72
+      ],
+      "audio_seconds": [
+        3.99,
+        4.6,
+        3.53,
+        5.5
+      ],
+      "extraction_seconds": 54.43,
+      "card": {
+        "caller_name": "Lisa Tran",
+        "phone": "423-555-0143",
+        "job": "Tune-up for system",
+        "urgency": "routine",
+        "address": "25 Poplar Avenue, Harriman",
+        "requested_time": "Weekday morning",
+        "summary": "Lisa Tran requested a $79 tune-up for her system at 25 Poplar Avenue, Harriman, for a weekday morning appointment."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Lisa Tran"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0143"
+        },
+        "address": {
+          "ok": true,
+          "got": "25 Poplar Avenue, Harriman"
+        },
+        "job": {
+          "ok": true,
+          "got": "Tune-up for system"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-emg-burst",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "Burst pipe flooding the laundry room (the shop's own scenario).",
+      "expected": {
+        "address": "willow",
+        "job": [
+          "pipe",
+          "burst",
+          "water",
+          "leak"
+        ],
+        "name": "novak",
+        "phone": "4235550190",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "A pipe just burst in our laundry room and water is pouring across the floor. I got the main shut off but we need a plumber tonight.",
+        "Chris Novak, 423-555-0190.",
+        "412 Willow Bend in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that! What\u2019s your name, please?",
+        "Okay, Mr. Novak. And what\u2019s your address?",
+        "Got it. And when would you like someone to come out to you?"
+      ],
+      "turn_seconds": [
+        65.16,
+        26.44,
+        22.51,
+        19.0
+      ],
+      "audio_seconds": [
+        4.17,
+        3.37,
+        3.66,
+        3.32
+      ],
+      "extraction_seconds": 59.06,
+      "card": {
+        "caller_name": "Chris Novak",
+        "phone": "423-555-0190",
+        "job": "Burst pipe in laundry room",
+        "urgency": "emergency",
+        "address": "412 Willow Bend in Oakdale",
+        "requested_time": "tonight",
+        "summary": "Chris Novak reported a burst pipe in his laundry room at 412 Willow Bend in Oakdale and requested immediate service tonight."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Chris Novak"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0190"
+        },
+        "address": {
+          "ok": true,
+          "got": "412 Willow Bend in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Burst pipe in laundry room"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-emg-sewage",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "Sewage backup into living space (shop card emergency).",
+      "expected": {
+        "address": "hickory",
+        "job": [
+          "sewage",
+          "sewer",
+          "backup",
+          "drain"
+        ],
+        "name": "sullivan",
+        "phone": "4235550112",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "Sewage is backing up into our living room from the floor drain, it's awful and getting worse.",
+        "Pat Sullivan, my number is 423-555-0112.",
+        "9 Hickory Hollow, Rockwood. Please, as soon as possible."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, and what\u2019s your address?",
+        "Got it. And when would you like someone to come out?"
+      ],
+      "turn_seconds": [
+        24.14,
+        19.93,
+        19.23,
+        21.23
+      ],
+      "audio_seconds": [
+        4.4,
+        3.23,
+        2.29,
+        3.06
+      ],
+      "extraction_seconds": 49.5,
+      "card": {
+        "caller_name": "Pat Sullivan",
+        "phone": "423-555-0112",
+        "job": "Sewage backing up into living room",
+        "urgency": "emergency",
+        "address": "9 Hickory Hollow, Rockwood",
+        "requested_time": "as soon as possible",
+        "summary": "Pat Sullivan reported a sewage backup into his living room at 9 Hickory Hollow, Rockwood, requiring immediate attention."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Pat Sullivan"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0112"
+        },
+        "address": {
+          "ok": true,
+          "got": "9 Hickory Hollow, Rockwood"
+        },
+        "job": {
+          "ok": true,
+          "got": "Sewage backing up into living room"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-emg-nowater-elderly",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "No water at all in a house with a 79-year-old (shop card emergency).",
+      "expected": {
+        "address": "sycamore",
+        "job": [
+          "water"
+        ],
+        "name": "avery",
+        "phone": "4235550177",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "We have no water at all in the house, nothing from any tap. My dad is 79 and lives with us.",
+        "Robin Avery, 423-555-0177.",
+        "158 Sycamore Street in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name and phone number?",
+        "Okay, and what\u2019s your address?",
+        "Got it. And when would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        21.76,
+        23.45,
+        20.24,
+        99.68
+      ],
+      "audio_seconds": [
+        4.77,
+        3.83,
+        2.29,
+        3.34
+      ],
+      "call_errors": [
+        "/api/end: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"RemoteDisconnected: Remote end closed connection without response\"}"
+      ],
+      "retries": 1,
+      "extraction_seconds": 86.78,
+      "card": {
+        "caller_name": "Robin Avery",
+        "phone": "423-555-0177",
+        "job": "No water at all in the house",
+        "urgency": "emergency",
+        "address": "158 Sycamore Street in Oakdale",
+        "requested_time": "not given",
+        "summary": "Robin Avery reported no water at 158 Sycamore Street in Oakdale, involving a 79-year-old resident, requiring immediate attention."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Robin Avery"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0177"
+        },
+        "address": {
+          "ok": true,
+          "got": "158 Sycamore Street in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "No water at all in the house"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-urg-heater",
+      "shop": "riverbend-plumbing",
+      "class": "urgent",
+      "note": "Water heater leaking into the garage, contained, tomorrow is fine (the shop's own scenario).",
+      "expected": {
+        "address": "juniper",
+        "job": [
+          "water heater",
+          "heater",
+          "leak"
+        ],
+        "name": "lindqvist",
+        "phone": "4235550139",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "Our water heater is leaking all over the garage floor and the puddle keeps growing. It's a fifty-gallon tank, maybe ten years old.",
+        "Steve Lindqvist, 423-555-0139.",
+        "71 Juniper Drive, Kingston. Tomorrow morning is fine."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that! What\u2019s your name, please?",
+        "Okay, Steve. And what\u2019s your address?",
+        "Got it. Thank you, Steve. I\u2019ll flag this as an emergency and let the owner know. Your number is 423 555 0139. Goodbye."
+      ],
+      "turn_seconds": [
+        76.52,
+        23.85,
+        23.71,
+        47.53
+      ],
+      "audio_seconds": [
+        4.49,
+        3.74,
+        3.14,
+        11.98
+      ],
+      "extraction_seconds": 56.7,
+      "card": {
+        "caller_name": "Steve Lindqvist",
+        "phone": "423-555-0139",
+        "job": "Leaking water heater",
+        "urgency": "emergency",
+        "address": "71 Juniper Drive, Kingston",
+        "requested_time": "Tomorrow morning",
+        "summary": "Steve Lindqvist reported a leaking fifty-gallon water heater at 71 Juniper Drive, Kingston, and requested service for tomorrow morning due to a growing puddle."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "emergency",
+          "ok": false
+        },
+        "name": {
+          "ok": true,
+          "got": "Steve Lindqvist"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0139"
+        },
+        "address": {
+          "ok": true,
+          "got": "71 Juniper Drive, Kingston"
+        },
+        "job": {
+          "ok": true,
+          "got": "Leaking water heater"
+        },
+        "fields_ok": 4,
+        "all_ok": false
+      }
+    },
+    {
+      "id": "plumb-rou-drain",
+      "shop": "riverbend-plumbing",
+      "class": "routine",
+      "note": "Slow kitchen drain, price question, this week (the shop's own scenario).",
+      "expected": {
+        "address": "aspen",
+        "job": [
+          "drain",
+          "sink",
+          "clear"
+        ],
+        "name": "whitfield",
+        "phone": "4235550151",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Hey, our kitchen sink drains real slow and keeps backing up. What would it cost to get the line cleared this week?",
+        "Nancy Whitfield, 423-555-0151.",
+        "226 Aspen Court in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Okay, I\u2019m sorry to hear that. Drain clearing is a flat $129 for a standard residential line. The owner will confirm the price on-site.",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, 226 Aspen Court. And when would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        62.32,
+        47.96,
+        23.72,
+        25.96
+      ],
+      "audio_seconds": [
+        4.63,
+        9.33,
+        3.15,
+        5.36
+      ],
+      "extraction_seconds": 51.63,
+      "card": {
+        "caller_name": "Nancy Whitfield",
+        "phone": "423-555-0151",
+        "job": "Slow draining kitchen sink",
+        "urgency": "routine",
+        "address": "226 Aspen Court, Oakdale",
+        "requested_time": "This week",
+        "summary": "Nancy Whitfield called regarding a slow draining kitchen sink at 226 Aspen Court, Oakdale, requesting a quote for line clearing this week."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Nancy Whitfield"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0151"
+        },
+        "address": {
+          "ok": true,
+          "got": "226 Aspen Court, Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Slow draining kitchen sink"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-rou-faucet",
+      "shop": "riverbend-plumbing",
+      "class": "routine",
+      "note": "Faucet replacement quote, no rush.",
+      "expected": {
+        "address": "redbud",
+        "job": [
+          "faucet",
+          "install",
+          "replace"
+        ],
+        "name": "haddad",
+        "phone": "4235550181",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "I'd like a quote to replace two bathroom faucets when you have an opening.",
+        "Omar Haddad, 423-555-0181.",
+        "33 Redbud Lane, Harriman. No rush at all."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Okay, let me get that for you. The owner will confirm the quote in person during business hours.",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, Redbud Lane in Harriman. When would you like someone to come by?"
+      ],
+      "turn_seconds": [
+        60.22,
+        28.5,
+        17.2,
+        19.49
+      ],
+      "audio_seconds": [
+        6.85,
+        6.77,
+        3.15,
+        4.26
+      ],
+      "extraction_seconds": 55.36,
+      "card": {
+        "caller_name": "Omar Haddad",
+        "phone": "423-555-0181",
+        "job": "Replace two bathroom faucets",
+        "urgency": "routine",
+        "address": "33 Redbud Lane, Harriman",
+        "requested_time": "Not given",
+        "summary": "Omar Haddad requested a quote to replace two bathroom faucets at 33 Redbud Lane, Harriman. The owner will confirm the quote in person during business hours."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Omar Haddad"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0181"
+        },
+        "address": {
+          "ok": true,
+          "got": "33 Redbud Lane, Harriman"
+        },
+        "job": {
+          "ok": true,
+          "got": "Replace two bathroom faucets"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "edge-vague",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Vague caller: funny-tasting water, first name only, no phone, no address. Missing fields must stay 'not given', never invented.",
+      "expected": {
+        "address": null,
+        "job": [
+          "water",
+          "taste"
+        ],
+        "name": "sam",
+        "phone": null,
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Something's wrong with the water at our house, it just tastes funny lately.",
+        "My name's Sam. I don't have the address memorized, I can call back."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, Sam. What\u2019s your callback number?"
+      ],
+      "turn_seconds": [
+        57.86,
+        24.19,
+        19.74
+      ],
+      "audio_seconds": [
+        3.73,
+        3.74,
+        2.85
+      ],
+      "extraction_seconds": 40.0,
+      "card": {
+        "caller_name": "Sam",
+        "phone": "not given",
+        "job": "funny tasting water",
+        "urgency": "routine",
+        "address": "not given",
+        "requested_time": "not given",
+        "summary": "Sam reported that the water at his house tastes funny and requested to call back."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Sam"
+        },
+        "phone": {
+          "ok": true,
+          "got": "not given"
+        },
+        "address": {
+          "ok": true,
+          "got": "not given"
+        },
+        "job": {
+          "ok": true,
+          "got": "funny tasting water"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "edge-prank",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Prank-ish call: the refrigerator joke, then an apology. No job exists; every field should come back 'not given'.",
+      "expected": {
+        "address": null,
+        "job": null,
+        "name": null,
+        "phone": null,
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Hey. Is your refrigerator running?",
+        "Ha, sorry, my kid dared me to call and say that. We're fine, nobody needs anything."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Oh no \u2013 I\u2019m sorry to hear that. We handle heating and cooling issues only.",
+        "Okay, got it."
+      ],
+      "turn_seconds": [
+        57.89,
+        23.87,
+        13.71
+      ],
+      "audio_seconds": [
+        4.38,
+        6.05,
+        0.97
+      ],
+      "extraction_seconds": 38.19,
+      "card": {
+        "caller_name": "not given",
+        "phone": "not given",
+        "job": "Refrigerator",
+        "urgency": "routine",
+        "address": "not given",
+        "requested_time": "not given",
+        "summary": "Caller inquired about a refrigerator issue, but Oakdale Heating & Air handles only heating and cooling."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "not given"
+        },
+        "phone": {
+          "ok": true,
+          "got": "not given"
+        },
+        "address": {
+          "ok": true,
+          "got": "not given"
+        },
+        "job": {
+          "ok": false,
+          "got": "Refrigerator"
+        },
+        "fields_ok": 3,
+        "all_ok": false
+      }
+    },
+    {
+      "id": "edge-withholds",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Caller asks the tune-up price and refuses to give phone or address. Name given, the rest must stay 'not given'.",
+      "expected": {
+        "address": null,
+        "job": [
+          "tune"
+        ],
+        "name": "kim",
+        "phone": null,
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "I want to know the price for a tune-up, that's all.",
+        "My name is Dana Kim, but I'm not giving my address or number out over the phone."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Okay, a tune-up is $79.",
+        "Got it. I\u2019ll flag an emergency for you then."
+      ],
+      "turn_seconds": [
+        58.42,
+        18.96,
+        17.69
+      ],
+      "audio_seconds": [
+        4.34,
+        2.92,
+        2.28
+      ],
+      "extraction_seconds": 49.55,
+      "card": {
+        "caller_name": "Dana Kim",
+        "phone": "not given",
+        "job": "Tune-up price",
+        "urgency": "routine",
+        "address": "not given",
+        "requested_time": "not given",
+        "summary": "Dana Kim requested a quote for a tune-up service."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Dana Kim"
+        },
+        "phone": {
+          "ok": true,
+          "got": "not given"
+        },
+        "address": {
+          "ok": true,
+          "got": "not given"
+        },
+        "job": {
+          "ok": true,
+          "got": "Tune-up price"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "edge-out-of-area",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Caller is in Knoxville, outside the shop's service area, with a dead AC. The card should still capture the facts; the desk should not invent coverage.",
+      "expected": {
+        "address": "gay",
+        "job": [
+          "ac",
+          "cool"
+        ],
+        "name": "petrov",
+        "phone": "8655550100",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "My AC quit and I need it looked at this week. I'm over in Knoxville.",
+        "Victor Petrov, 865-555-0100.",
+        "500 Gay Street, Knoxville."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. Okay, let me get this down. What\u2019s your name?",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, and when would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        54.62,
+        23.35,
+        18.45,
+        21.27
+      ],
+      "audio_seconds": [
+        4.13,
+        4.3,
+        3.27,
+        4.34
+      ],
+      "extraction_seconds": 51.9,
+      "card": {
+        "caller_name": "Victor Petrov",
+        "phone": "865-555-0100",
+        "job": "AC quit",
+        "urgency": "urgent",
+        "address": "500 Gay Street, Knoxville",
+        "requested_time": "this week",
+        "summary": "Victor Petrov called requesting AC repair at 500 Gay Street, Knoxville, and wants someone to come out this week."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "urgent",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Victor Petrov"
+        },
+        "phone": {
+          "ok": true,
+          "got": "865-555-0100"
+        },
+        "address": {
+          "ok": true,
+          "got": "500 Gay Street, Knoxville"
+        },
+        "job": {
+          "ok": true,
+          "got": "AC quit"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    }
+  ]
+}

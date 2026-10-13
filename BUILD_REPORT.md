@@ -167,3 +167,61 @@ the owner-review section; re-shoot them before the DEV post goes out.
 stand-in voice (warmer settings, not a clone); no phone line, no STT;
 sandbox turn latency got slower at steps 8 under memory pressure —
 no latency claims made anywhere.
+
+## v3 — held-out eval + demo video + economics (Oct 13, 2026)
+
+**Held-out triage/extraction eval (`eval/`).** 20 scripted caller
+scenarios (both shops; 8 emergency / 5 urgent / 5 routine per each
+shop's own definitions, plus vague, prank, refusal, and out-of-area
+edge cases) run against the final v2 desk through its real HTTP API,
+scored field by field. Results (`eval/results.json`, write-up
+`eval/RESULTS.md`): **urgency 19/20 (emergencies 8/8), extraction
+fields 79/80, scenarios fully correct 18/20, zero invented fields.**
+Median desk turn 23.9 s end to end (2-core sandbox; greeting turns and
+a cold-stack 89.8 s first greeting included), median summary
+extraction 54.1 s. Both failures are named in RESULTS.md: (1)
+`plumb-urg-heater` over-triaged urgent → emergency (contained garage
+leak; candidate prompt fix documented, deliberately NOT applied after
+seeing the test); (2) `edge-prank` extracted job "Refrigerator" from
+the refrigerator joke. Highlights: the gas scenario's first desk reply
+was the 911 safety instruction; withheld fields stayed "not given" in
+all three edge cases. Sandbox honesty: the run spanned two full VM
+restarts and repeated llama-server deaths; the harness gained per-call
+retries and a fresh-stack-per-scenario mode (`eval/run_singles.sh`),
+all recorded in the results' provenance fields. Harness-only fix worth
+remembering: llama-server splits its context across parallel slots, so
+eval/desk brain servers must run `--parallel 1` or long conversations
+400 on context overflow.
+
+**Demo video (`demo-evidence/demo-video.mp4`).** 29.0 s, 1000×1250,
+H.264 + AAC (556 KB), captions burned in + sidecar
+`demo-evidence/demo-video.srt`. Content: one complete live call in the
+real simulator (Oakdale no-heat + baby), greeting through owner
+summary card. Method: headless Firefox drove the actual page
+(`scripts/capture_demo.py`); frames are live viewport captures; the
+audio is the exact WAV bytes the desk server returned for those
+replies, intercepted from the page's own /api/start and /api/say
+responses; assembly by `scripts/make_video.py`. Shorter than the ~90 s
+originally planned: the scripted second call (Riverbend burst pipe)
+never completed a UI capture across four attempts (the sandbox's load
+repeatedly starved the browser driver mid-call), so the video ships
+with the one call that was captured completely and honestly rather
+than padding. The plumbing call itself is fully covered by the eval.
+
+**Unit economics (measured, now in README + DEV draft).** Per-turn
+usage probed against llama-server with the real Oakdale system prompt:
+773 prompt / 20 completion tokens for the greeting; 831 prompt (768
+cached) / 20 completion on turn 2; ≈4,500 tokens for a full call
+including extraction. API cost $0 by construction; electricity for a
+3-minute call on a 65 W laptop at $0.15/kWh ≈ $0.0005. Marginal cost
+per call ≈ $0, which is the honest basis for the flat $49/mo against
+the already-sourced market ranges (cloud AI receptionists ~$30–$100/mo,
+human answering $200–$500+/mo). No cloud per-minute prices invented.
+
+**DEV post rewrite.** DEV_POST_DRAFT.md restructured to the winning
+shape (opening scene, licensing hook, eval table + named failures,
+unit economics, Gemma 1B-vs-4B comparison table, pilot search stated
+plainly with a reserved HTML-comment slot): ~2,620 words, about an
+11-12 minute read (was ~1,150 words / ~5-6 minutes). No em dashes
+anywhere in the post body (Ryan's rule). Prize Categories unchanged:
+Best Use of Gemma only; Render still not claimed (not used).

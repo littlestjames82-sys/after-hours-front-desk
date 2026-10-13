@@ -1,0 +1,313 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T10:19:06+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "plumb-emg-burst",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "Burst pipe flooding the laundry room (the shop's own scenario).",
+      "expected": {
+        "address": "willow",
+        "job": [
+          "pipe",
+          "burst",
+          "water",
+          "leak"
+        ],
+        "name": "novak",
+        "phone": "4235550190",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "A pipe just burst in our laundry room and water is pouring across the floor. I got the main shut off but we need a plumber tonight.",
+        "Chris Novak, 423-555-0190.",
+        "412 Willow Bend in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that! What\u2019s your name, please?",
+        "Okay, Mr. Novak. And what\u2019s your address?",
+        "Got it. And when would you like someone to come out to you?"
+      ],
+      "turn_seconds": [
+        65.16,
+        26.44,
+        22.51,
+        19.0
+      ],
+      "audio_seconds": [
+        4.17,
+        3.37,
+        3.66,
+        3.32
+      ],
+      "extraction_seconds": 59.06,
+      "card": {
+        "caller_name": "Chris Novak",
+        "phone": "423-555-0190",
+        "job": "Burst pipe in laundry room",
+        "urgency": "emergency",
+        "address": "412 Willow Bend in Oakdale",
+        "requested_time": "tonight",
+        "summary": "Chris Novak reported a burst pipe in his laundry room at 412 Willow Bend in Oakdale and requested immediate service tonight."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Chris Novak"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0190"
+        },
+        "address": {
+          "ok": true,
+          "got": "412 Willow Bend in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Burst pipe in laundry room"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-emg-sewage",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "Sewage backup into living space (shop card emergency).",
+      "expected": {
+        "address": "hickory",
+        "job": [
+          "sewage",
+          "sewer",
+          "backup",
+          "drain"
+        ],
+        "name": "sullivan",
+        "phone": "4235550112",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "Sewage is backing up into our living room from the floor drain, it's awful and getting worse.",
+        "Pat Sullivan, my number is 423-555-0112.",
+        "9 Hickory Hollow, Rockwood. Please, as soon as possible."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, and what\u2019s your address?",
+        "Got it. And when would you like someone to come out?"
+      ],
+      "turn_seconds": [
+        24.14,
+        19.93,
+        19.23,
+        21.23
+      ],
+      "audio_seconds": [
+        4.4,
+        3.23,
+        2.29,
+        3.06
+      ],
+      "extraction_seconds": 49.5,
+      "card": {
+        "caller_name": "Pat Sullivan",
+        "phone": "423-555-0112",
+        "job": "Sewage backing up into living room",
+        "urgency": "emergency",
+        "address": "9 Hickory Hollow, Rockwood",
+        "requested_time": "as soon as possible",
+        "summary": "Pat Sullivan reported a sewage backup into his living room at 9 Hickory Hollow, Rockwood, requiring immediate attention."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Pat Sullivan"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0112"
+        },
+        "address": {
+          "ok": true,
+          "got": "9 Hickory Hollow, Rockwood"
+        },
+        "job": {
+          "ok": true,
+          "got": "Sewage backing up into living room"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-emg-nowater-elderly",
+      "shop": "riverbend-plumbing",
+      "class": "emergency",
+      "note": "No water at all in a house with a 79-year-old (shop card emergency).",
+      "expected": {
+        "address": "sycamore",
+        "job": [
+          "water"
+        ],
+        "name": "avery",
+        "phone": "4235550177",
+        "urgency": "emergency"
+      },
+      "caller_lines": [
+        "We have no water at all in the house, nothing from any tap. My dad is 79 and lives with us.",
+        "Robin Avery, 423-555-0177.",
+        "158 Sycamore Street in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name and phone number?",
+        "Okay, and what\u2019s your address?",
+        "Got it. And when would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        21.76,
+        23.45,
+        20.24,
+        99.68
+      ],
+      "audio_seconds": [
+        4.77,
+        3.83,
+        2.29,
+        3.34
+      ],
+      "call_errors": [
+        "/api/end: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"RemoteDisconnected: Remote end closed connection without response\"}"
+      ],
+      "retries": 1,
+      "extraction_seconds": 86.78,
+      "card": {
+        "caller_name": "Robin Avery",
+        "phone": "423-555-0177",
+        "job": "No water at all in the house",
+        "urgency": "emergency",
+        "address": "158 Sycamore Street in Oakdale",
+        "requested_time": "not given",
+        "summary": "Robin Avery reported no water at 158 Sycamore Street in Oakdale, involving a 79-year-old resident, requiring immediate attention."
+      },
+      "score": {
+        "urgency": {
+          "expected": "emergency",
+          "got": "emergency",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Robin Avery"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0177"
+        },
+        "address": {
+          "ok": true,
+          "got": "158 Sycamore Street in Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "No water at all in the house"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    },
+    {
+      "id": "plumb-urg-heater",
+      "shop": "riverbend-plumbing",
+      "class": "urgent",
+      "note": "Water heater leaking into the garage, contained, tomorrow is fine (the shop's own scenario).",
+      "expected": {
+        "address": "juniper",
+        "job": [
+          "water heater",
+          "heater",
+          "leak"
+        ],
+        "name": "lindqvist",
+        "phone": "4235550139",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "Our water heater is leaking all over the garage floor and the puddle keeps growing. It's a fifty-gallon tank, maybe ten years old.",
+        "Steve Lindqvist, 423-555-0139.",
+        "71 Juniper Drive, Kingston. Tomorrow morning is fine."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. What\u2019s your name, please?",
+        "Okay, Mr. Lindqvist. And what\u2019s your address?"
+      ],
+      "turn_seconds": [
+        81.63,
+        89.07,
+        81.71
+      ],
+      "audio_seconds": [
+        4.94,
+        3.48,
+        4.47
+      ],
+      "call_errors": [
+        "/api/say: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"RemoteDisconnected: Remote end closed connection without response\"}",
+        "/api/say: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"HTTPError: HTTP Error 400: Bad Request\"}",
+        "/api/say: HTTPError: HTTP Error 500: Internal Server Error {\"error\": \"HTTPError: HTTP Error 400: Bad Request\"}"
+      ],
+      "retries": 2,
+      "error": "HTTPError: HTTP Error 500: Internal Server Error"
+    }
+  ],
+  "summary": {
+    "scenarios": 3,
+    "urgency_correct": 3,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 3,
+      "phone": 3,
+      "address": 3,
+      "job": 3
+    },
+    "fields_total": {
+      "name": 3,
+      "phone": 3,
+      "address": 3,
+      "job": 3
+    },
+    "field_checks_correct": 12,
+    "field_checks_total": 12,
+    "fully_correct_scenarios": 3,
+    "turn_seconds": {
+      "count": 12,
+      "mean": 31.9,
+      "median": 22.14,
+      "min": 19.0,
+      "max": 99.68
+    },
+    "extraction_seconds": {
+      "mean": 65.11,
+      "median": 59.06
+    }
+  }
+}

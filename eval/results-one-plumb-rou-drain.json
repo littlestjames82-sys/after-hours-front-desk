@@ -1,0 +1,115 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T11:02:08+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "plumb-rou-drain",
+      "shop": "riverbend-plumbing",
+      "class": "routine",
+      "note": "Slow kitchen drain, price question, this week (the shop's own scenario).",
+      "expected": {
+        "address": "aspen",
+        "job": [
+          "drain",
+          "sink",
+          "clear"
+        ],
+        "name": "whitfield",
+        "phone": "4235550151",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Hey, our kitchen sink drains real slow and keeps backing up. What would it cost to get the line cleared this week?",
+        "Nancy Whitfield, 423-555-0151.",
+        "226 Aspen Court in Oakdale."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Okay, I\u2019m sorry to hear that. Drain clearing is a flat $129 for a standard residential line. The owner will confirm the price on-site.",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, 226 Aspen Court. And when would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        62.32,
+        47.96,
+        23.72,
+        25.96
+      ],
+      "audio_seconds": [
+        4.63,
+        9.33,
+        3.15,
+        5.36
+      ],
+      "extraction_seconds": 51.63,
+      "card": {
+        "caller_name": "Nancy Whitfield",
+        "phone": "423-555-0151",
+        "job": "Slow draining kitchen sink",
+        "urgency": "routine",
+        "address": "226 Aspen Court, Oakdale",
+        "requested_time": "This week",
+        "summary": "Nancy Whitfield called regarding a slow draining kitchen sink at 226 Aspen Court, Oakdale, requesting a quote for line clearing this week."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Nancy Whitfield"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0151"
+        },
+        "address": {
+          "ok": true,
+          "got": "226 Aspen Court, Oakdale"
+        },
+        "job": {
+          "ok": true,
+          "got": "Slow draining kitchen sink"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 1,
+    "urgency_correct": 1,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "fields_total": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "field_checks_correct": 4,
+    "field_checks_total": 4,
+    "fully_correct_scenarios": 1,
+    "turn_seconds": {
+      "count": 4,
+      "mean": 39.99,
+      "median": 36.96,
+      "min": 23.72,
+      "max": 62.32
+    },
+    "extraction_seconds": {
+      "mean": 51.63,
+      "median": 51.63
+    }
+  }
+}

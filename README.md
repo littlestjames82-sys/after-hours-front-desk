@@ -97,6 +97,35 @@ a designed, consent-first step, not a faked one.
 - `smoke_test.py` — headless end-to-end proof: a full scripted call,
   PASS/FAIL per stage.
 
+## The eval — 20 scripted calls, scored field by field
+
+A demo call proves a demo works, so the finished desk was also run
+against **20 scripted caller scenarios it had never seen** (both shops;
+emergencies, urgent, routine, plus vague/prank/refusal/out-of-area edge
+cases), scored on urgency (by each shop's own definition) and on the
+extracted name, phone, address, and job. Full write-up, per-scenario
+table, and raw data: [`eval/RESULTS.md`](eval/RESULTS.md) and
+`eval/results.json`; harness: `eval/run_eval.py`.
+
+- **Urgency: 19/20 (95%)** — emergencies **8/8**
+- **Extraction fields: 79/80** (name 20/20, phone 20/20, address 20/20,
+  job 19/20); scenarios fully correct: 18/20
+- **Zero invented details**: withheld names/numbers/addresses came back
+  "not given" every time
+- The two failures are named in the report, not hidden: one over-triage
+  (a contained garage leak flagged emergency instead of urgent — the
+  candidate fix is documented but was deliberately not applied after
+  seeing the test), and the prank call whose "job" was extracted as
+  "Refrigerator."
+- Latency (2-core sandbox, shared box — not a production claim):
+  median desk turn ≈ 24 s end to end; median summary extraction ≈ 54 s.
+
+A short demo video of a live call (`demo-evidence/demo-video.mp4`,
+29 s, with burned-in captions and a sidecar
+`demo-evidence/demo-video.srt`) was captured from the real simulator
+page; its frames are live viewport captures and its audio is the exact
+speech the desk generated for those replies.
+
 ## Why open is the business model
 
 The first voice engine this studio adopted for client work turned out to
@@ -107,6 +136,16 @@ what makes this product sellable at all. And because both the brain
 own hardware, the marginal cost of a call is **zero** — no API keys, no
 per-minute billing, no customer data leaving the building. Open isn't a
 feature of this business; it's the reason the price works.
+
+**The arithmetic, measured on this machine:** a desk turn processes
+~800–900 tokens, nearly all of it the shop-card system prompt, which
+llama.cpp serves from its prefix cache after the first turn (measured:
+768 of 831 prompt tokens were cache hits on turn two); the model
+generates ~20 tokens per spoken reply. A full call (greeting + 3 turns
++ summary extraction) is roughly 4,500 tokens. The API bill is $0 —
+there is no API. The only meter is electricity: a 65 W laptop for a
+3-minute call at $0.15/kWh is about a twentieth of a cent. That is why
+$49/month can be flat while per-minute cloud pricing cannot.
 
 ## Run it
 

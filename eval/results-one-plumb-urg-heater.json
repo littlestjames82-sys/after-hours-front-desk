@@ -1,0 +1,115 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T10:58:04+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "plumb-urg-heater",
+      "shop": "riverbend-plumbing",
+      "class": "urgent",
+      "note": "Water heater leaking into the garage, contained, tomorrow is fine (the shop's own scenario).",
+      "expected": {
+        "address": "juniper",
+        "job": [
+          "water heater",
+          "heater",
+          "leak"
+        ],
+        "name": "lindqvist",
+        "phone": "4235550139",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "Our water heater is leaking all over the garage floor and the puddle keeps growing. It's a fifty-gallon tank, maybe ten years old.",
+        "Steve Lindqvist, 423-555-0139.",
+        "71 Juniper Drive, Kingston. Tomorrow morning is fine."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that! What\u2019s your name, please?",
+        "Okay, Steve. And what\u2019s your address?",
+        "Got it. Thank you, Steve. I\u2019ll flag this as an emergency and let the owner know. Your number is 423 555 0139. Goodbye."
+      ],
+      "turn_seconds": [
+        76.52,
+        23.85,
+        23.71,
+        47.53
+      ],
+      "audio_seconds": [
+        4.49,
+        3.74,
+        3.14,
+        11.98
+      ],
+      "extraction_seconds": 56.7,
+      "card": {
+        "caller_name": "Steve Lindqvist",
+        "phone": "423-555-0139",
+        "job": "Leaking water heater",
+        "urgency": "emergency",
+        "address": "71 Juniper Drive, Kingston",
+        "requested_time": "Tomorrow morning",
+        "summary": "Steve Lindqvist reported a leaking fifty-gallon water heater at 71 Juniper Drive, Kingston, and requested service for tomorrow morning due to a growing puddle."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "emergency",
+          "ok": false
+        },
+        "name": {
+          "ok": true,
+          "got": "Steve Lindqvist"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0139"
+        },
+        "address": {
+          "ok": true,
+          "got": "71 Juniper Drive, Kingston"
+        },
+        "job": {
+          "ok": true,
+          "got": "Leaking water heater"
+        },
+        "fields_ok": 4,
+        "all_ok": false
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 1,
+    "urgency_correct": 0,
+    "urgency_accuracy": 0.0,
+    "fields_correct": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "fields_total": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "field_checks_correct": 4,
+    "field_checks_total": 4,
+    "fully_correct_scenarios": 0,
+    "turn_seconds": {
+      "count": 4,
+      "mean": 42.9,
+      "median": 35.69,
+      "min": 23.71,
+      "max": 76.52
+    },
+    "extraction_seconds": {
+      "mean": 56.7,
+      "median": 56.7
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T11:11:48+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "edge-prank",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Prank-ish call: the refrigerator joke, then an apology. No job exists; every field should come back 'not given'.",
+      "expected": {
+        "address": null,
+        "job": null,
+        "name": null,
+        "phone": null,
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "Hey. Is your refrigerator running?",
+        "Ha, sorry, my kid dared me to call and say that. We're fine, nobody needs anything."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?",
+        "Oh no \u2013 I\u2019m sorry to hear that. We handle heating and cooling issues only.",
+        "Okay, got it."
+      ],
+      "turn_seconds": [
+        57.89,
+        23.87,
+        13.71
+      ],
+      "audio_seconds": [
+        4.38,
+        6.05,
+        0.97
+      ],
+      "extraction_seconds": 38.19,
+      "card": {
+        "caller_name": "not given",
+        "phone": "not given",
+        "job": "Refrigerator",
+        "urgency": "routine",
+        "address": "not given",
+        "requested_time": "not given",
+        "summary": "Caller inquired about a refrigerator issue, but Oakdale Heating & Air handles only heating and cooling."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "not given"
+        },
+        "phone": {
+          "ok": true,
+          "got": "not given"
+        },
+        "address": {
+          "ok": true,
+          "got": "not given"
+        },
+        "job": {
+          "ok": false,
+          "got": "Refrigerator"
+        },
+        "fields_ok": 3,
+        "all_ok": false
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 1,
+    "urgency_correct": 1,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 0
+    },
+    "fields_total": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "field_checks_correct": 3,
+    "field_checks_total": 4,
+    "fully_correct_scenarios": 0,
+    "turn_seconds": {
+      "count": 3,
+      "mean": 31.82,
+      "median": 23.87,
+      "min": 13.71,
+      "max": 57.89
+    },
+    "extraction_seconds": {
+      "mean": 38.19,
+      "median": 38.19
+    }
+  }
+}

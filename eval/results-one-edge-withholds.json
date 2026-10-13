@@ -1,0 +1,109 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T11:14:17+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "edge-withholds",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Caller asks the tune-up price and refuses to give phone or address. Name given, the rest must stay 'not given'.",
+      "expected": {
+        "address": null,
+        "job": [
+          "tune"
+        ],
+        "name": "kim",
+        "phone": null,
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "I want to know the price for a tune-up, that's all.",
+        "My name is Dana Kim, but I'm not giving my address or number out over the phone."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Okay, a tune-up is $79.",
+        "Got it. I\u2019ll flag an emergency for you then."
+      ],
+      "turn_seconds": [
+        58.42,
+        18.96,
+        17.69
+      ],
+      "audio_seconds": [
+        4.34,
+        2.92,
+        2.28
+      ],
+      "extraction_seconds": 49.55,
+      "card": {
+        "caller_name": "Dana Kim",
+        "phone": "not given",
+        "job": "Tune-up price",
+        "urgency": "routine",
+        "address": "not given",
+        "requested_time": "not given",
+        "summary": "Dana Kim requested a quote for a tune-up service."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Dana Kim"
+        },
+        "phone": {
+          "ok": true,
+          "got": "not given"
+        },
+        "address": {
+          "ok": true,
+          "got": "not given"
+        },
+        "job": {
+          "ok": true,
+          "got": "Tune-up price"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 1,
+    "urgency_correct": 1,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "fields_total": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "field_checks_correct": 4,
+    "field_checks_total": 4,
+    "fully_correct_scenarios": 1,
+    "turn_seconds": {
+      "count": 3,
+      "mean": 31.69,
+      "median": 18.96,
+      "min": 17.69,
+      "max": 58.42
+    },
+    "extraction_seconds": {
+      "mean": 49.55,
+      "median": 49.55
+    }
+  }
+}

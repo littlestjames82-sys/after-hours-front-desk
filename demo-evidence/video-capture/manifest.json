@@ -1,0 +1,50 @@
+{
+  "segments": [
+    {
+      "tag": "intro",
+      "kind": "title",
+      "frame": "frames/intro.png",
+      "page_line": "Press Call \u2014 the front desk answers\n     out loud. Then type as the caller.",
+      "caption": "A real call, recorded live in the simulator. The desk is a local model; the caller side is typed."
+    },
+    {
+      "tag": "hvac-0-greeting",
+      "kind": "greeting",
+      "frame": "frames/hvac-0-greeting.png",
+      "audio": "audio/hvac-0-greeting.wav",
+      "audio_seconds": 4.94,
+      "page_line": "Oakdale Heating & Air: Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?"
+    },
+    {
+      "tag": "hvac-1-reply",
+      "kind": "reply",
+      "frame": "frames/hvac-1-reply.png",
+      "audio": "audio/hvac-1-reply.wav",
+      "audio_seconds": 4.04,
+      "page_line": "Oakdale Heating & Air: Oh no - I\u2019m sorry to hear that. What\u2019s your name, please?"
+    },
+    {
+      "tag": "hvac-2-reply",
+      "kind": "reply",
+      "frame": "frames/hvac-2-reply.png",
+      "audio": "audio/hvac-2-reply.wav",
+      "audio_seconds": 2.38,
+      "page_line": "Oakdale Heating & Air: Okay, and what\u2019s your address?"
+    },
+    {
+      "tag": "hvac-3-reply",
+      "kind": "reply",
+      "frame": "frames/hvac-3-reply.png",
+      "audio": "audio/hvac-3-reply.wav",
+      "audio_seconds": 3.19,
+      "page_line": "Oakdale Heating & Air: Got it. And what time were you hoping someone could come by?"
+    },
+    {
+      "tag": "hvac-9-card",
+      "kind": "card",
+      "frame": "frames/hvac-9-card.png",
+      "page_line": "Oakdale Heating & Air: Got it. And what time were you hoping someone could come by?",
+      "caption": "The owner summary card: extracted from the transcript by the same local model."
+    }
+  ]
+}

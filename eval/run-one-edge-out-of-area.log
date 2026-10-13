@@ -1,0 +1,33 @@
+=== edge-out-of-area (oakdale-heating-air) ===
+    urgency: expected urgent, got 'urgent' (OK) · fields 4/4 · turns [54.62, 23.35, 18.45, 21.27]
+{
+  "scenarios": 1,
+  "urgency_correct": 1,
+  "urgency_accuracy": 1.0,
+  "fields_correct": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "fields_total": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "field_checks_correct": 4,
+  "field_checks_total": 4,
+  "fully_correct_scenarios": 1,
+  "turn_seconds": {
+    "count": 4,
+    "mean": 29.42,
+    "median": 22.31,
+    "min": 18.45,
+    "max": 54.62
+  },
+  "extraction_seconds": {
+    "mean": 51.9,
+    "median": 51.9
+  }
+}

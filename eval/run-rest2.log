@@ -1,0 +1,14 @@
+=== plumb-emg-burst (riverbend-plumbing) ===
+    urgency: expected emergency, got 'emergency' (OK) · fields 4/4 · turns [65.16, 26.44, 22.51, 19.0]
+=== plumb-emg-sewage (riverbend-plumbing) ===
+    urgency: expected emergency, got 'emergency' (OK) · fields 4/4 · turns [24.14, 19.93, 19.23, 21.23]
+=== plumb-emg-nowater-elderly (riverbend-plumbing) ===
+    [eval] call failed (HTTP Error 500: Internal Server Error {"error": "RemoteDisconnected: Remote end closed connection without response"}); retry 1 in 20s
+    urgency: expected emergency, got 'emergency' (OK) · fields 4/4 · turns [21.76, 23.45, 20.24, 99.68]
+=== plumb-urg-heater (riverbend-plumbing) ===
+    [eval] resident brain is down; the desk's per-call fallback path will serve this scenario
+    [eval] call failed (HTTP Error 500: Internal Server Error {"error": "RemoteDisconnected: Remote end closed connection without response"}); retry 1 in 20s
+    [eval] call failed (HTTP Error 500: Internal Server Error {"error": "HTTPError: HTTP Error 400: Bad Request"}); retry 2 in 20s
+    ERROR: HTTPError: HTTP Error 500: Internal Server Error
+=== plumb-rou-drain (riverbend-plumbing) ===
+    [eval] resident brain is down; the desk's per-call fallback path will serve this scenario

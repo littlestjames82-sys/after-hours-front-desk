@@ -1,0 +1,33 @@
+=== plumb-rou-faucet (riverbend-plumbing) ===
+    urgency: expected routine, got 'routine' (OK) · fields 4/4 · turns [60.22, 28.5, 17.2, 19.49]
+{
+  "scenarios": 1,
+  "urgency_correct": 1,
+  "urgency_accuracy": 1.0,
+  "fields_correct": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "fields_total": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "field_checks_correct": 4,
+  "field_checks_total": 4,
+  "fully_correct_scenarios": 1,
+  "turn_seconds": {
+    "count": 4,
+    "mean": 31.35,
+    "median": 23.99,
+    "min": 17.2,
+    "max": 60.22
+  },
+  "extraction_seconds": {
+    "mean": 55.36,
+    "median": 55.36
+  }
+}

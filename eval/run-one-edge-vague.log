@@ -1,0 +1,33 @@
+=== edge-vague (oakdale-heating-air) ===
+    urgency: expected routine, got 'routine' (OK) · fields 4/4 · turns [57.86, 24.19, 19.74]
+{
+  "scenarios": 1,
+  "urgency_correct": 1,
+  "urgency_accuracy": 1.0,
+  "fields_correct": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "fields_total": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "field_checks_correct": 4,
+  "field_checks_total": 4,
+  "fully_correct_scenarios": 1,
+  "turn_seconds": {
+    "count": 3,
+    "mean": 33.93,
+    "median": 24.19,
+    "min": 19.74,
+    "max": 57.86
+  },
+  "extraction_seconds": {
+    "mean": 40.0,
+    "median": 40.0
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T11:16:57+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "edge-out-of-area",
+      "shop": "oakdale-heating-air",
+      "class": "edge",
+      "note": "Caller is in Knoxville, outside the shop's service area, with a dead AC. The card should still capture the facts; the desk should not invent coverage.",
+      "expected": {
+        "address": "gay",
+        "job": [
+          "ac",
+          "cool"
+        ],
+        "name": "petrov",
+        "phone": "8655550100",
+        "urgency": "urgent"
+      },
+      "caller_lines": [
+        "My AC quit and I need it looked at this week. I'm over in Knoxville.",
+        "Victor Petrov, 865-555-0100.",
+        "500 Gay Street, Knoxville."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Oakdale Heating & Air, how can I help you today?",
+        "Oh no \u2013 I\u2019m sorry to hear that. Okay, let me get this down. What\u2019s your name?",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, and when would you like someone to come out and take a look?"
+      ],
+      "turn_seconds": [
+        54.62,
+        23.35,
+        18.45,
+        21.27
+      ],
+      "audio_seconds": [
+        4.13,
+        4.3,
+        3.27,
+        4.34
+      ],
+      "extraction_seconds": 51.9,
+      "card": {
+        "caller_name": "Victor Petrov",
+        "phone": "865-555-0100",
+        "job": "AC quit",
+        "urgency": "urgent",
+        "address": "500 Gay Street, Knoxville",
+        "requested_time": "this week",
+        "summary": "Victor Petrov called requesting AC repair at 500 Gay Street, Knoxville, and wants someone to come out this week."
+      },
+      "score": {
+        "urgency": {
+          "expected": "urgent",
+          "got": "urgent",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Victor Petrov"
+        },
+        "phone": {
+          "ok": true,
+          "got": "865-555-0100"
+        },
+        "address": {
+          "ok": true,
+          "got": "500 Gay Street, Knoxville"
+        },
+        "job": {
+          "ok": true,
+          "got": "AC quit"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 1,
+    "urgency_correct": 1,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "fields_total": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "field_checks_correct": 4,
+    "field_checks_total": 4,
+    "fully_correct_scenarios": 1,
+    "turn_seconds": {
+      "count": 4,
+      "mean": 29.42,
+      "median": 22.31,
+      "min": 18.45,
+      "max": 54.62
+    },
+    "extraction_seconds": {
+      "mean": 51.9,
+      "median": 51.9
+    }
+  }
+}

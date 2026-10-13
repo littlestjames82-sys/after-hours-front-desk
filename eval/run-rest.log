@@ -1,0 +1,10 @@
+=== hvac-rou-quote (oakdale-heating-air) ===
+    urgency: expected routine, got 'routine' (OK) · fields 4/4 · turns [62.58, 26.31, 19.19, 26.84]
+=== hvac-rou-tuneup (oakdale-heating-air) ===
+    urgency: expected routine, got 'routine' (OK) · fields 4/4 · turns [18.22, 24.14, 20.94, 37.72]
+=== plumb-emg-burst (riverbend-plumbing) ===
+    [eval] call failed (timed out ); retry 1 in 20s
+    [eval] call failed (HTTP Error 500: Internal Server Error {"error": "HTTPError: HTTP Error 400: Bad Request"}); retry 2 in 20s
+    ERROR: HTTPError: HTTP Error 500: Internal Server Error
+=== plumb-emg-sewage (riverbend-plumbing) ===
+    [eval] call failed (timed out ); retry 1 in 20s

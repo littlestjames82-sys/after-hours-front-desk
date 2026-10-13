@@ -1,0 +1,115 @@
+{
+  "eval": "After-Hours Front Desk triage + extraction eval",
+  "started_at": "2026-10-13T11:05:55+00:00",
+  "model_file": "gemma-3-4b-it-Q4_K_M.gguf",
+  "brain_url": "http://127.0.0.1:8771",
+  "note": "Turn seconds are end-to-end wall time per desk reply (brain generation + Sopro voice synthesis) on the 2-core sandbox build box. Scenarios are scripted; the desk replies and the summary card are live model output.",
+  "results": [
+    {
+      "id": "plumb-rou-faucet",
+      "shop": "riverbend-plumbing",
+      "class": "routine",
+      "note": "Faucet replacement quote, no rush.",
+      "expected": {
+        "address": "redbud",
+        "job": [
+          "faucet",
+          "install",
+          "replace"
+        ],
+        "name": "haddad",
+        "phone": "4235550181",
+        "urgency": "routine"
+      },
+      "caller_lines": [
+        "I'd like a quote to replace two bathroom faucets when you have an opening.",
+        "Omar Haddad, 423-555-0181.",
+        "33 Redbud Lane, Harriman. No rush at all."
+      ],
+      "desk_replies": [
+        "Hello, thank you for calling Riverbend Plumbing & Drain, how can I help you today?",
+        "Okay, let me get that for you. The owner will confirm the quote in person during business hours.",
+        "Got it. And what\u2019s your address, please?",
+        "Okay, Redbud Lane in Harriman. When would you like someone to come by?"
+      ],
+      "turn_seconds": [
+        60.22,
+        28.5,
+        17.2,
+        19.49
+      ],
+      "audio_seconds": [
+        6.85,
+        6.77,
+        3.15,
+        4.26
+      ],
+      "extraction_seconds": 55.36,
+      "card": {
+        "caller_name": "Omar Haddad",
+        "phone": "423-555-0181",
+        "job": "Replace two bathroom faucets",
+        "urgency": "routine",
+        "address": "33 Redbud Lane, Harriman",
+        "requested_time": "Not given",
+        "summary": "Omar Haddad requested a quote to replace two bathroom faucets at 33 Redbud Lane, Harriman. The owner will confirm the quote in person during business hours."
+      },
+      "score": {
+        "urgency": {
+          "expected": "routine",
+          "got": "routine",
+          "ok": true
+        },
+        "name": {
+          "ok": true,
+          "got": "Omar Haddad"
+        },
+        "phone": {
+          "ok": true,
+          "got": "423-555-0181"
+        },
+        "address": {
+          "ok": true,
+          "got": "33 Redbud Lane, Harriman"
+        },
+        "job": {
+          "ok": true,
+          "got": "Replace two bathroom faucets"
+        },
+        "fields_ok": 4,
+        "all_ok": true
+      }
+    }
+  ],
+  "summary": {
+    "scenarios": 1,
+    "urgency_correct": 1,
+    "urgency_accuracy": 1.0,
+    "fields_correct": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "fields_total": {
+      "name": 1,
+      "phone": 1,
+      "address": 1,
+      "job": 1
+    },
+    "field_checks_correct": 4,
+    "field_checks_total": 4,
+    "fully_correct_scenarios": 1,
+    "turn_seconds": {
+      "count": 4,
+      "mean": 31.35,
+      "median": 23.99,
+      "min": 17.2,
+      "max": 60.22
+    },
+    "extraction_seconds": {
+      "mean": 55.36,
+      "median": 55.36
+    }
+  }
+}

@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:05,000
+A real call, recorded live in the simulator. The desk is a local model; the caller side is typed.
+
+2
+00:00:05,000 --> 00:00:10,540
+Hello, thank you for calling Oakdale Heating & Air, how can I help you tonight?
+
+3
+00:00:10,540 --> 00:00:15,180
+Oh no - I’m sorry to hear that. What’s your name, please?
+
+4
+00:00:15,180 --> 00:00:18,160
+Okay, and what’s your address?
+
+5
+00:00:18,160 --> 00:00:21,950
+Got it. And what time were you hoping someone could come by?
+
+6
+00:00:21,950 --> 00:00:28,950
+The owner summary card: extracted from the transcript by the same local model.

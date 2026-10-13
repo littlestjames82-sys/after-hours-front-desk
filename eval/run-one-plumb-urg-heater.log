@@ -1,0 +1,33 @@
+=== plumb-urg-heater (riverbend-plumbing) ===
+    urgency: expected urgent, got 'emergency' (MISS) · fields 4/4 · turns [76.52, 23.85, 23.71, 47.53]
+{
+  "scenarios": 1,
+  "urgency_correct": 0,
+  "urgency_accuracy": 0.0,
+  "fields_correct": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "fields_total": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "field_checks_correct": 4,
+  "field_checks_total": 4,
+  "fully_correct_scenarios": 0,
+  "turn_seconds": {
+    "count": 4,
+    "mean": 42.9,
+    "median": 35.69,
+    "min": 23.71,
+    "max": 76.52
+  },
+  "extraction_seconds": {
+    "mean": 56.7,
+    "median": 56.7
+  }
+}

@@ -116,3 +116,23 @@ Audited: Oct 13, 2026. Rules read fresh from the official sources:
 - **No first user yet:** bonus points unclaimed; the draft says so
   honestly ("first real shop" is step 3 of What's Next). Do not let any
   edit imply otherwise.
+
+---
+
+**Update Oct 13, 2026 (v3, win-research pass):** the draft was rewritten
+to the winning shape and the demo gap is closed with real artifacts:
+- **Demo video EXISTS:** `demo-evidence/demo-video.mp4` (29 s, real live
+  call in the simulator, real desk audio, burned-in captions + sidecar
+  .srt). The Demo section leads with it (upload marker is an HTML
+  comment, invisible if missed).
+- **Held-out eval EXISTS:** 20 scripted scenarios, urgency 19/20,
+  fields 79/80, both failures named in `eval/RESULTS.md` and in the
+  post itself. No retuning after seeing the test.
+- **Unit economics measured** (tokens per turn/call, $0 API cost,
+  ~$0.0005 electricity per call) and cited in README + post. Market
+  price ranges unchanged from the originally sourced ones.
+- **Read time:** ~2,620 words (about 11-12 min), up from ~1,150.
+- **No em dashes** anywhere in the post body (Ryan's Oct 13 rule).
+- Prize Categories still Best Use of Gemma only; Render not claimed.
+- Remaining GAP-RYAN is unchanged: Ryan publishes on DEV before
+  Oct 18, 2026, 11:59 PM PDT and sets the editor's AI disclosure.

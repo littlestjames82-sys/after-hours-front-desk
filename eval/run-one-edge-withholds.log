@@ -1,0 +1,33 @@
+=== edge-withholds (oakdale-heating-air) ===
+    urgency: expected routine, got 'routine' (OK) · fields 4/4 · turns [58.42, 18.96, 17.69]
+{
+  "scenarios": 1,
+  "urgency_correct": 1,
+  "urgency_accuracy": 1.0,
+  "fields_correct": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "fields_total": {
+    "name": 1,
+    "phone": 1,
+    "address": 1,
+    "job": 1
+  },
+  "field_checks_correct": 4,
+  "field_checks_total": 4,
+  "fully_correct_scenarios": 1,
+  "turn_seconds": {
+    "count": 3,
+    "mean": 31.69,
+    "median": 18.96,
+    "min": 17.69,
+    "max": 58.42
+  },
+  "extraction_seconds": {
+    "mean": 49.55,
+    "median": 49.55
+  }
+}
